@@ -1,24 +1,20 @@
-# SINAL | Política editorial de volume e relevância
+# Política Editorial do SINAL 7.0 (substitui a antiga regra de 10 a 20 por editoria)
 
-## A decisão
-**Meta mínima:** 10 conteúdos distintos por editoria em cada edição diária. **Teto:** 20.
-Nove editorias: Marketing, Plataformas, IA, Negócios, Creators, Brand + Creators, Marcas em Ascensão, Negócios Locais e RUN. O Radar Internacional também tem a meta 10–20 referências verificadas, mas é um acervo de vídeo e não matéria RSS.
+O SINAL agora publica **no máximo 40 notícias em toda a edição**, independentemente de quantas editorias existam. Não há cota mínima: se apenas 25 fontes apresentarem conteúdo útil, publicamos 25. Não preencher por número.
 
-## Regras de qualidade
-1. O número mínimo é meta de descoberta e filtragem, nunca uma obrigação de publicar 10 se houver somente 4 evidências legítimas.
-2. Não criar posts, números de views, nomes de marcas, URLs, campanhas ou resultados comerciais.
-3. Separar cobertura de fatos recentes de estudos de cases e evidenciar a data original.
-4. Não publicar o mesmo link mais de uma vez por edição (a notícia pode servir de recomendação cruzada com indicação editorial, mas não duplicar como matéria).
-5. Preferir fontes primárias, e nunca caracterizar resultados apenas inferidos como comprovados.
-6. Ordenar inicialmente por aderência ao tema, atualidade e fonte; enriquecer os destaques com IA conforme a chave da API, sem supor que ela revisou integralmente o texto das fontes.
-7. Na ausência de material bastante: mostrar ``X conteúdos disponíveis / meta 10``; não bloquear a edição, não preencher com cartões genéricos.
+## Critério central: aplicação prática
+Cada notícia deve gerar uma decisão, um teste, um formato, uma mudança de campanha ou uma oportunidade operacional. Pergunta editorial obrigatória: **qual experimento concreto isso permite, e qual métrica observar?**
 
-## Experiência
-- Capa: um banner visual para cada uma das nove editorias, ligado a matéria com URL, fonte e data.
-- Editorias: listagem com capa, contagem total e botão **Ver mais**, seis itens por etapa.
-- Observatório: casos verificáveis da watchlist, até 20 por grupo, quatro visíveis inicialmente.
-- Vídeos internacionais: até 20 e carregamento progressivo em lotes de seis.
-- Arquivo: manter edições anteriores; não reciclar automaticamente como "novo".
+### Editorias
+Marketing (tráfego, CRO, criativos, conversão); Plataformas (Instagram, Meta, Google Ads, TikTok, YouTube); IA (ferramentas e fluxos de trabalho); Negócios (modelos replicáveis, aquisição, retenção); Creators (formato, distribuição, monetização); Brand + Creators (UGC, campanhas e parcerias); Marcas (posicionamento, experiência, rebranding); Local (casos de negócios na Bahia com aprendizado replicável); RUN (Brasil todo: corridas, comunidades, patrocínios, operações e ativações); Saúde & Migo (telemedicina, healthtech, psicologia, benefícios corporativos, saúde ocupacional e NR-1).
 
-## Limitações atuais
-Esta entrega adapta o **motor e a interface**, não cria retrospectivamente 10-20 matérias reais para a edição demonstrativa. Os resultados variam com o material disponível nas fontes, a qualidade da classificação, o acesso a APIs e a execução de GitHub Actions após publicação. Feed de notícias só dá título/trecho, não comprova integralmente reportagem, crescimento ou viralidade. O Instagram e o TikTok requerem integrações ou curadoria autorizadas para dados sobre postagens.
+### Excluir
+Fofocas e vida pessoal, celebridades sem case operacional, Anitta e entretenimento, notícias policiais/tragédias, política genérica, futebol sem relevância de marketing, ganhos bilionários sem metodologia, corridas metafóricas ou corridas de shows, artigos sem fonte/data, conteúdo duplicado, e afirmações de resultados não comprovados.
+
+### Integridade
+Usar fontes com links, datas e contexto. Não converter US$ em R$. Não transformar testes de plataformas em lançamentos gerais. Não inferir causalidade de melhorias de CTR/ROAS sem metodologia e não dar aconselhamento médico. A análise é hipótese para teste, não garantia de resultado.
+
+O Radar Internacional é uma seção de referências em vídeo **separada das 40 notícias**. Vídeos exigem links e métricas verificáveis; excluir tutoriais genéricos, gossip e comentários não relacionados a campanhas.
+
+### Antes de publicar
+Usar `python -m py_compile scripts/update.py` e `node --check assets/app.js`. Em seguida confirmar distribuição por editoria, contagem global <= 40, manchetes em PT-BR, vídeos com fonte, e que os cards "Para fazer hoje" abram estratégias.

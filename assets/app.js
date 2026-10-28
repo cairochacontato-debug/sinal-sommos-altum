@@ -27,7 +27,7 @@
   function readSaved(){try{return JSON.parse(localStorage.getItem('aristoteles-saved')||'[]')}catch{return []}}
   function persist(){try{localStorage.setItem('aristoteles-saved',JSON.stringify(state.saved))}catch{}}
   function toast(t){const e=$('toast');e.textContent=t;e.classList.add('visible');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('visible'),2400)}
-  const categories = {Marketing:'MARKETING',Plataformas:'PLATAFORMAS',IA:'INTELIGÊNCIA ARTIFICIAL',Negócios:'NEGÓCIOS',Creators:'CREATORS',Marcas:'MARCAS EM MOVIMENTO',Local:'NEGÓCIOS LOCAIS',RUN:'RUN','Brand+Creators':'BRAND + CREATORS'};
+  const categories = {Marketing:'MARKETING',Plataformas:'PLATAFORMAS',IA:'INTELIGÊNCIA ARTIFICIAL',Negócios:'NEGÓCIOS',Creators:'CREATORS',Marcas:'MARCAS EM MOVIMENTO',Local:'NEGÓCIOS LOCAIS',RUN:'RUN','Brand+Creators':'BRAND + CREATORS',Saúde:'SAÚDE & TELEMEDICINA'};
   const badge = (a) => safe(categories[a.category] || a.category || 'MOVIMENTO');
   function render(){
     const issue=state.edition;
@@ -52,7 +52,8 @@
     {key:'Brand+Creators',label:'BRAND + CREATORS',photo:'studio',anchor:'collabs',subtitle:'Campanhas e colaborações de marca'},
     {key:'Marcas',label:'RISING BRANDS',photo:'studio',anchor:'brands',subtitle:'Marcas para estudar'},
     {key:'Local',label:'NEGÓCIOS LOCAIS',photo:'cafe',anchor:'local',subtitle:'Salvador e Bahia em destaque'},
-    {key:'RUN',label:'SINAL RUN',photo:'runners',anchor:'run',subtitle:'Corridas, marcas e comunidades'}
+    {key:'RUN',label:'SINAL RUN',photo:'runners',anchor:'run',subtitle:'Corridas e experiências de todo o Brasil'},
+    {key:'Saúde',label:'SAÚDE & MIGO',photo:'workspace',anchor:'mais-noticias',subtitle:'Telemedicina, saúde corporativa e oportunidades'}
   ];
   const exactBannerArea=(a,area)=> a.area === area || (!a.area && a.category===area);
   function bannersForIssue(){
@@ -110,9 +111,7 @@
       $('sectionCoverage').textContent=`${Math.min(articles.length,state.visibleArticles)} de ${articles.length} matérias nesta seleção. Explore as editorias pelo menu para ver a cobertura completa.`;
     } else {
       const label=categories[state.filter]||state.filter;
-      $('sectionCoverage').textContent=articles.length<10
-        ? `${label}: ${articles.length} conteúdos disponíveis nesta edição. A meta é encontrar 10 a 20, sem duplicar ou inventar notícias.`
-        : `${label}: ${articles.length} notícias e análises selecionadas nesta edição. Exibindo ${Math.min(articles.length,state.visibleArticles)}.`;
+      $('sectionCoverage').textContent=`${label}: ${articles.length} notícias úteis nesta edição. O jornal todo tem no máximo 40, sem preenchimento artificial.`;
     }
     $('moreNews').hidden=articles.length<=state.visibleArticles;
     $('moreNews').textContent=`Mostrar mais ${Math.min(6,articles.length-state.visibleArticles)} de ${articles.length} ↓`;
@@ -121,7 +120,7 @@
   }
   function renderVirals(){
     const virals=state.edition.virals||[];
-    if(virals.length){$('viralCoverage').textContent=`${virals.length} referências verificadas na edição. Meta de 10 a 20, conforme fontes disponíveis.`;$('moreVirals').hidden=virals.length<=state.visibleVirals; $('moreVirals').textContent=`Ver mais ${Math.min(6,virals.length-state.visibleVirals)} referências ↓`;$('viralCards').innerHTML=virals.slice(0,state.visibleVirals).map((v,i)=>`<article class="viral-card"><div class="viral-media">${imageTag(v,i+1)}<span class="video-play" aria-hidden="true">▶</span></div><div class="viral-card-copy"><div class="type">${safe(v.platform||'VÍDEO')} / ORIGEM ${safe(v.source_language||v.language||'EN')}</div><h3>${safe(v.title)}</h3><p>${safe(excerpt(v.insight,145))}</p><a href="${safeUrl(v.url)}" target="_blank" rel="noopener noreferrer">Ver publicação original ↗</a></div></article>`).join('');return;}
+    if(virals.length){$('viralCoverage').textContent=`${virals.length} referências de vídeo selecionadas; apenas publicações com fonte e métricas verificáveis.`;$('moreVirals').hidden=virals.length<=state.visibleVirals; $('moreVirals').textContent=`Ver mais ${Math.min(6,virals.length-state.visibleVirals)} referências ↓`;$('viralCards').innerHTML=virals.slice(0,state.visibleVirals).map((v,i)=>`<article class="viral-card"><div class="viral-media">${imageTag(v,i+1)}<span class="video-play" aria-hidden="true">▶</span></div><div class="viral-card-copy"><div class="type">${safe(v.platform||'VÍDEO')} / ORIGEM ${safe(v.source_language||v.language||'EN')}</div><h3>${safe(v.title)}</h3><p>${safe(excerpt(v.insight,145))}</p><a href="${safeUrl(v.url)}" target="_blank" rel="noopener noreferrer">Ver publicação original ↗</a></div></article>`).join('');return;}
     $('moreVirals').hidden=true; $('viralCoverage').textContent='Nenhum vídeo internacional com URL verificada nesta edição; não são criados links fictícios.';
     const examples=[['filmmaker','Ganchos e narrativas','Observe como um vídeo abre a conversa.'],['editing','Edição e ritmo','Repare em cortes, tempo e enquadramento.'],['studio','Marcas e criadores','Como uma campanha ganha linguagem própria.']];
     $('viralCards').innerHTML=examples.map(x=>`<article class="viral-card example-card"><div class="viral-media"><img src="assets/editorial/${x[0]}.webp" loading="lazy" alt="Imagem ilustrativa de conteúdo criativo"/><span class="video-play" aria-hidden="true">✦</span></div><div class="viral-card-copy"><div class="type">FORMATO PARA ESTUDAR · DEMONSTRAÇÃO</div><h3>${x[1]}</h3><p>${x[2]}</p></div></article>`).join('')+`<p class="viral-note">Imagens conceituais para demonstrar o layout. Esta edição não contém vídeos virais verificados; quando forem encontrados, os cartões terão link direto para o conteúdo original.</p>`;

@@ -29,9 +29,14 @@ NOW = dt.datetime.now(dt.timezone.utc)
 TODAY = NOW.astimezone(TZ).date().isoformat()
 LOOKBACK = 48
 MAX_AGE = dt.timedelta(hours=LOOKBACK)
-MIN_PER_SECTION = 10  # meta de curadoria, nunca preencher artificialmente
-MAX_PER_SECTION = 20  # teto absoluto por editoria e por edição
-SECTION_LOOKBACK = {'Marcas':14, 'Local':14, 'RUN':14, 'Creators':7, 'Brand+Creators':14}  # estudos e casos têm ciclos mais longos
+MAX_TOTAL_NEWS = 40  # limite GLOBAL de notícias por edição (não por editoria)
+MAX_CANDIDATES_PER_AREA = 18  # candidatos para a curadoria, nunca cota de publicação
+MAX_PER_SECTION = 20  # apenas limite de vídeos; notícia usa AREAS_CAPS
+AREAS_CAPS = {'Marketing': 8, 'Plataformas': 8, 'IA': 6, 'Negócios': 5,
+              'Creators': 4, 'Brand+Creators': 5, 'Marcas': 4,
+              'Local': 4, 'RUN': 7, 'Saúde': 6}
+MIN_RELEVANCE_SCORE = 5  # notícia sem aplicação direta não entra para completar cota
+SECTION_LOOKBACK = {'Marcas':10, 'Local':7, 'RUN':10, 'Creators':7, 'Brand+Creators':10, 'Saúde':7}  # estudos e casos têm ciclos mais longos
 AGENT = 'SinalNewsReader/1.1 (personal curated news reader; contact repo owner)'
 
 FEEDS = [
@@ -44,6 +49,7 @@ FEEDS = [
 ]
 
 KEYWORDS = {
+    'Saúde': ['telehealth','telemedicine','healthtech','digital health','benefits healthcare','mental health at work'],
     'Plataformas': ['instagram','threads','reels','tiktok','youtube','meta ','facebook','linkedin','shorts','creator'],
     'IA': ['artificial intelligence',' ai ','openai','chatgpt','generative','agentic','claude','gemini','model','automation','machine learning'],
     'Marketing': ['ad campaign','advertising','marketing','google ads','brand','campaign','social media','creative','seo','search','cmo','influencer','creator economy'],
@@ -59,41 +65,43 @@ TRUST_HOSTS = {urlparse(url).netloc for _,url in FEEDS}
 # Cada consulta é restrita a termos editoriais, com idade editorial diferente para cases.
 THEME_QUERIES = {
     'Marketing': [
-        ('marketing campaigns creative advertising brand strategy', 'en-US','US','US:en'),
-        ('marketing publicidade campanha estratégia conteúdo marcas', 'pt-BR','BR','BR:pt')],
+        ('marketing performance ads attribution conversion rate case study', 'en-US','US','US:en'),
+        ('tráfego pago meta ads google ads conversão campanha resultados', 'pt-BR','BR','BR:pt'),
+        ('marketing creative testing A/B landing page CRO email retention', 'en-US','US','US:en')],
     'Plataformas': [
-        ('instagram tiktok youtube reels shorts meta ads update', 'en-US','US','US:en'),
-        ('instagram tiktok youtube atualizações algoritmo anúncios', 'pt-BR','BR','BR:pt')],
+        ('instagram reels new features video update creators meta ads', 'en-US','US','US:en'),
+        ('instagram tiktok youtube novas funções anúncios algoritmo', 'pt-BR','BR','BR:pt'),
+        ('meta ads manager google ads youtube shorts business update', 'en-US','US','US:en')],
     'IA': [
-        ('generative AI agents tools creative business launch', 'en-US','US','US:en'),
-        ('inteligência artificial ferramentas automação negócios', 'pt-BR','BR','BR:pt')],
+        ('AI agent automation workflow tool marketing business product update', 'en-US','US','US:en'),
+        ('inteligência artificial ferramentas agentes automação empresas', 'pt-BR','BR','BR:pt')],
     'Negócios': [
-        ('startup entrepreneurship commerce subscriptions retail growth', 'en-US','US','US:en'),
-        ('negócios startups varejo comércio expansão empreendedores', 'pt-BR','BR','BR:pt')],
+        ('ecommerce retail subscriptions growth strategy conversion case study', 'en-US','US','US:en'),
+        ('pequenos negócios varejo ecommerce assinaturas estratégia vendas', 'pt-BR','BR','BR:pt')],
     'Creators': [
-        ('creator economy influencers content creators social media', 'en-US','US','US:en'),
-        ('criadores conteúdo influenciadores monetização youtube tiktok', 'pt-BR','BR','BR:pt')],
+        ('creator economy monetization short form video strategy audience retention', 'en-US','US','US:en'),
+        ('criador conteúdo monetização UGC formato vídeos marketing', 'pt-BR','BR','BR:pt')],
     'Brand+Creators': [
-        ('brand influencer partnership UGC creator campaign', 'en-US','US','US:en'),
-        ('marca criador influenciador campanha embaixador UGC parceria', 'pt-BR','BR','BR:pt')],
+        ('creator brand partnership UGC case study advertising performance', 'en-US','US','US:en'),
+        ('campanha marcas creators UGC embaixadores estratégia resultado', 'pt-BR','BR','BR:pt')],
     'Marcas': [
-        ('emerging brands rebrand retail launch expansion', 'en-US','US','US:en'),
-        ('marcas novas branding reposicionamento expansão lançamento', 'pt-BR','BR','BR:pt')],
+        ('brand repositioning product launch customer experience case study', 'en-US','US','US:en'),
+        ('rebranding marca reposicionamento inovação experiência cliente case', 'pt-BR','BR','BR:pt')],
     'Local': [
-        ('(inaugura OR inauguração OR expande) (Salvador OR Bahia) loja negócio', 'pt-BR','BR','BR:pt'),
-        ('empreendedorismo (Salvador OR Bahia) marcas empresas', 'pt-BR','BR','BR:pt'),
-        ('(restaurante OR cafeteria OR varejo) (Salvador OR Bahia) inauguração', 'pt-BR','BR','BR:pt'),
-        ('(franquia OR startup OR investimento) (Salvador OR Bahia)', 'pt-BR','BR','BR:pt'),
-        ('site:atarde.com.br (economia OR inauguração OR empresa) Salvador', 'pt-BR','BR','BR:pt'),
-        ('site:correio24horas.com.br (negócios OR empreendedorismo OR comércio) Bahia', 'pt-BR','BR','BR:pt')],
+        ('(inauguração OR expande OR franquia) (Salvador OR Bahia) empresa loja', 'pt-BR','BR','BR:pt'),
+        ('(restaurante OR cafeteria OR varejo) (Salvador OR Bahia) estratégia expansão', 'pt-BR','BR','BR:pt'),
+        ('(marca OR startup) baiana (lançamento OR expansão OR inovação)', 'pt-BR','BR','BR:pt')],
     'RUN': [
-        ('(corrida OR maratona OR treinão) (Salvador OR Bahia)', 'pt-BR','BR','BR:pt'),
-        ('(inscrições OR calendário) corrida Salvador Bahia', 'pt-BR','BR','BR:pt'),
-        ('(corrida OR treinão) (Piatã OR Patamares OR Barra OR Ondina) Salvador', 'pt-BR','BR','BR:pt'),
-        ('(run club OR grupo de corrida) (Salvador OR Bahia)', 'pt-BR','BR','BR:pt'),
-        ('(corrida de rua OR running) marcas ativações patrocínio', 'pt-BR','BR','BR:pt'),
-        ('running club brand activation sports marketing race', 'en-US','US','US:en'),
-        ('site:ge.globo.com/ba corrida Salvador inscrição', 'pt-BR','BR','BR:pt')],
+        ('corrida de rua marcas patrocínio experiência comunidade Brasil', 'pt-BR','BR','BR:pt'),
+        ('treinão gratuito running club corrida de rua marcas Brasil', 'pt-BR','BR','BR:pt'),
+        ('corrida de rua organização evento inscrições percurso Brasil', 'pt-BR','BR','BR:pt'),
+        ('running community brand activation race event sponsorship', 'en-US','US','US:en'),
+        ('maratona corrida marketing esportivo ativações comunidade', 'pt-BR','BR','BR:pt')],
+    'Saúde': [
+        ('telemedicina saúde digital empresas plano benefício colaboradores', 'pt-BR','BR','BR:pt'),
+        ('saúde mental trabalho NR-1 riscos psicossociais empresas', 'pt-BR','BR','BR:pt'),
+        ('healthtech telehealth mental health at work employer benefits', 'en-US','US','US:en'),
+        ('telemedicina psicologia nutrição plataforma regulamentação mercado Brasil', 'pt-BR','BR','BR:pt')]
 }
 AREA_TERMS = {
     'Marketing': ['marketing','advertis','publicidade','campanha','creative','criativo','branding','brand'],
@@ -104,9 +112,10 @@ AREA_TERMS = {
     'Brand+Creators': ['creator','influencer','criador','influenciador','ugc','embaixador','parceria'],
     'Marcas': ['brand','marca','branding','campanha','identidade','rebrand','expans'],
     'Local': ['salvador','bahia','baiano','baiana','feira de santana','recôncavo'],
-    'RUN': ['corrida','running','corredor','maratona','treinão','run club','atletismo','runner'],
+    'RUN': ['corrida de rua','running','maratona','treinão','run club','atletismo','runner','patrocínio esportivo','meia maratona'],
+    'Saúde': ['telemedicina','telemedicine','telehealth','saúde digital','healthtech','saúde mental','mental health','psicologia','nr-1','riscos psicossociais','benefício saúde','health benefits'],
 }
-EDITORIAS = ('Marketing', 'Plataformas', 'IA', 'Negócios', 'Creators', 'Brand+Creators', 'Marcas', 'Local', 'RUN')
+EDITORIAS = ('Marketing', 'Plataformas', 'IA', 'Negócios', 'Creators', 'Brand+Creators', 'Marcas', 'Local', 'RUN', 'Saúde')
 
 
 
@@ -134,7 +143,7 @@ def query_theme(area, cfg):
             if not title or not url_original.startswith('https://'):
                 continue
             words=(title+' '+snippet).lower()
-            if any(b in words for b in BADWORDS) or not any(x in words for x in AREA_TERMS[area]):
+            if any(b in (' '+title.lower()+' ') for b in BADWORDS) or not any(x in words for x in AREA_TERMS[area]):
                 continue
             publisher=ent.get('source',{}).get('title') or 'Google Notícias (RSS)'
             publisher=clean(publisher)
@@ -152,32 +161,128 @@ def query_theme(area, cfg):
     return output
 
 
-def prioritize_editorias(items):
-    """Selecione até 20 itens relevantes por editoria, sem teto global e sem fabricação.
+# Curadoria 7.0: o assunto precisa oferecer uma mudança, tática ou caso reproduzível.
+# Não é um classificador médico: apenas filtra notícias do mercado, sem prescrever condutas.
+STOP_TOPICS = re.compile(r'\b(?:anitta|virginia\s+fonseca|lu[ií]sa\s+sonza|bbb|big\s+brother|famos[ao]s?|celebridade|namorad[oa]|casamento|div[oó]rcio|fofoca|trai[cç][aã]o|hor[oó]scopo|astrologia|morreu|morte|homic[ií]dio|assalto|pol[ií]cia|inc[eê]ndio|apag[aã]o|interrup[cç][aã]o\s+de\s+energia|acidente|terras\s+raras|elei[cç][oõ]es|receita\s+bilion[aá]ria|resultados\s+trimestrais|earnings\s+call)\b', re.I)
+BUSINESS_TRIGGERS = ('lança','lançamento','launch','test','testa','nova função','new feature','update','atualiz','algorit','anúnc','ads','tráfego','convers','conversion','ctr','cpc','cpa','roas','performance','ferrament','tool','workflow','autom','automat','agent','agente','aplic','estrat','strategy','como','how','case study','estudo de caso','experi','experience','resultado','growth','cresci','patroc','parceria','partnership','monetiz','rebrand','reposicion','campanha','campaign','experimento','a/b','funil','landing page','reten','retention','mídia','media buying','mensura','attribution','attribution','crm','e-commerce','ecommerce','loja','expans','subscription','assinatura','inscri','engajamento','engagement','social commerce','marketplace','comunidade','community','nr-1','psicossoc','regulament','compliance','telemed','healthtech')
+RUN_CONTEXT = ('corrida de rua','corridas de rua','maratona','meia maratona','running','run club','running club','treinão','treinao','corredor','atletismo','atleta','prova de corrida','race','5 km','10 km','21 km','42 km','5k','10k','patrocínio esportivo')
+RUN_UTILITY = ('marca','brand','experiência','experi','organiza','inscri','evento','event','calendário','kit','patroc','ativa','comunidade','community','clube','club','marketing','trein','percurso','hidrata','logística','particip','recorde de inscrição','modelo','negócio','negocio','format','campanha','venda','engaja','acesso','gratuit','nova prova','lança')
+LOCAL_BUSINESS = ('empresa','negócio','negocio','loja','startup','franquia','inaugura','restaurante','cafeteria','varejo','marca','ecommerce','e-commerce','comércio','comercio','expans','empreend','vendas','atendimento','experiência','experiencia','cliente','lançamento','mercado','food service')
+HEALTH_MARKET = ('telemedicina','telemedicine','telehealth','saúde digital','saude digital','healthtech','health tech','saúde mental','saude mental','mental health','nr-1','psicossocial','psicologia','psicólogo','psicologo','nutrição','nutricao','benefício saúde','beneficio saude','saúde corporativa','saude corporativa','plano de saúde','plano de saude','medicina digital','regulação de saúde','consulta online','medtech')
+HEALTH_UTILITY = ('empresa','trabalho','corporat','colaborador','funcion','benefício','beneficio','regul','nr-1','mercado','plataforma','telemed','saúde digital','saude digital','healthtech','cobertura','atendimento','produto','psicossocial','programa','modelo','custo','acesso','expansão','expansao','lançamento','implementa','segurança','compliance')
 
-    Fontes com pouca cobertura podem entregar menos de 10. A meta editorial de 10
-    não é usada para duplicar títulos, ampliar falsamente frescor nem gerar links.
-    """
-    output=[]
-    seen_ids=set()
+
+def normalized_terms(text):
+    import unicodedata
+    plain=unicodedata.normalize('NFKD',str(text or '').lower())
+    plain=''.join(c for c in plain if not unicodedata.combining(c))
+    return re.sub(r'[^a-z0-9]+',' ',plain).strip()
+
+
+def near_duplicate(first, second):
+    # Somente títulos comparáveis, evitando cinco manchetes do mesmo evento.
+    common={'de','do','da','dos','das','em','na','no','com','para','por','o','a','e','um','uma','the','new','and','for','in','to','com','2026','2027','que','sobre'}
+    x=set(normalized_terms(first).split())-common
+    y=set(normalized_terms(second).split())-common
+    if not x or not y:return False
+    return len(x&y)/len(x|y) >= .64 or (len(x&y)>=5 and len(x&y)/min(len(x),len(y))>=.83)
+
+
+def relevance_score(a):
+    area=a.get('area',a.get('category',''))
+    title=normalized_terms(a.get('title',''))
+    desc=normalized_terms(a.get('summary',''))[:300]
+    full=title+' '+desc
+    if STOP_TOPICS.search(full) or any(k in full for k in ('ganhou na loteria','ficou noiva','foi preso','festa de aniversario','vazou video intimo')):return 0
+    # Bancos de notícias generalistas indexam acidentes, fofocas e apostas: não são sinais aplicáveis.
+    if area=='Local':
+        if not any(x in full for x in ('salvador','bahia','baiana','baiano','feira de santana','recôncavo','bahi')):return 0
+        if not any(x in full for x in LOCAL_BUSINESS):return 0
+        if not any(x in full for x in ('inaugur','expans','lanç','nova','novo','modelo','estrat','invest','mercado','franquia','marca','varejo','negócio','negocio','empresa','experiência','atendimento','vendas','tendência','rede')):return 0
+    if area=='RUN':
+        if not any(x in full for x in RUN_CONTEXT):return 0
+        if not any(x in full for x in RUN_UTILITY):return 0
+        if any(x in full for x in ('corrida eleitoral','corrida por','corrida ao','corrida presidencial','corrida espacial','corrida armamentista','maratona de shows','maratona de filmes','maratona de lives')):return 0
+    if area=='Saúde':
+        if not any(x in full for x in HEALTH_MARKET):return 0
+        if not any(x in full for x in HEALTH_UTILITY):return 0
+    if area in ('Marketing','Plataformas','IA','Negócios','Creators','Brand+Creators','Marcas'):
+        # Uma pessoa ou empresa famosa não basta. É necessário método, ferramenta ou mudança concreta.
+        if not any(x in full for x in BUSINESS_TRIGGERS):return 0
+        if area=='Negócios' and not any(x in full for x in ('negócio','negocio','business','ecommerce','e commerce','retail','varejo','startup','convers','vendas','assinatura','subscription','estrat','marketing','empreend','cliente','franquia','growth','loja','commercial','commerce','pricing','preço','preco','receita por','lucro por')):return 0
+        if area=='Marcas' and not any(x in full for x in ('marca','brand','rebrand','branding','reposicion','campanha','design','lança','launch','experiência','experience','cliente','cresci','expans','estrat')):return 0
+    strong=('lança','testa','nova função','atualização','anúncios','ads','tráfego','conversão','meta ads','google ads','criativo','performance','estratégia','case study','estudo de caso','integra','automat','agentes','workflow','brand activation','run club','corrida de rua','patrocínio','benefícios','nr-1','telemedicina','rebranding','ux','cro','captação','mensuração')
+    s=2+sum(min(2,title.count(normalized_terms(w))) for w in strong)+min(3,sum(1 for w in BUSINESS_TRIGGERS if normalized_terms(w) in full))
+    if area=='RUN':s+=2
+    if area=='Saúde':s+=2
+    if area=='Plataformas' and any(w in title for w in ('instagram','meta ads','tiktok','youtube','google ads')):s+=2
+    if area=='Local':s+=2
+    if a.get('source') in ('Search Engine Journal','Social Media Today','Marketing Dive'):s+=1
+    return s
+
+
+def prioritize_editorias(items):
+    output=[]; seen_ids=set(); seen_titles=[]
     for area in EDITORIAS:
-        pool=[a for a in items if a.get('area',a.get('category'))==area]
+        pool=[]
+        for candidate in items:
+            if candidate.get('area',candidate.get('category'))!=area:continue
+            score=relevance_score(candidate)
+            if score<MIN_RELEVANCE_SCORE:continue
+            candidate['editorial_score']=score
+            pool.append(candidate)
+        pool.sort(key=lambda a:(a['editorial_score'],a.get('score',0),a.get('published_utc','')), reverse=True)
         chosen=[]
-        seen_titles=set()
         for a in pool:
-            token=re.sub(r'[^a-z0-9]+','',a['title'].casefold())[:95]
-            if a['id'] in seen_ids or token in seen_titles:
-                continue
-            # O score e a data são usados na ordem de coleta, para não preencher
-            # automaticamente o máximo com notícias frágeis.
-            chosen.append(a)
-            seen_titles.add(token)
-            seen_ids.add(a['id'])
-            if len(chosen)>=MAX_PER_SECTION:break
+            if a['id'] in seen_ids or any(near_duplicate(a['title'],t) for t in seen_titles):continue
+            seen_ids.add(a['id']);seen_titles.append(a['title']);chosen.append(a)
+            if len(chosen)>=MAX_CANDIDATES_PER_AREA:break
         output.extend(chosen)
-        print(f'Editoria {area}: {len(chosen)}/{MIN_PER_SECTION} meta; limite {MAX_PER_SECTION}')
+        print(f'Editoria {area}: {len(chosen)} candidatos acionáveis, ainda NÃO publicados')
     return output
 
+
+def select_global_40(news, edited):
+    # A IA pode rejeitar notícias fracas; nunca preencher o restante com fofocas.
+    chosen_by_id={a['id']:a for a in news if relevance_score(a)>=MIN_RELEVANCE_SCORE}
+    ranking=[]
+    if edited:
+        ids=edited.get('selected_ids')
+        if isinstance(ids,list):ranking=[str(v) for v in ids if isinstance(v,str)]
+        if not ranking and isinstance(edited.get('selected_ids_by_area'),dict):
+            ranking=[i for area in EDITORIAS for i in edited['selected_ids_by_area'].get(area,[]) if isinstance(i,str)]
+    if ranking:
+        accepted=[chosen_by_id[i] for i in ranking if i in chosen_by_id]
+        # Caso o modelo só devolva 2 destaques, usar o filtro determinístico.
+        if len(accepted)<10 and len(chosen_by_id)>=20:accepted=list(chosen_by_id.values())
+    else:accepted=list(chosen_by_id.values())
+    accepted=list({a['id']:a for a in accepted}.values())
+    # Sem resposta da IA, priorizar relevância; com IA, combinar posição e score.
+    if not ranking or len(ranking)<10:
+        accepted.sort(key=lambda a:(a.get('editorial_score',relevance_score(a)),a.get('published_utc','')),reverse=True)
+    groups={k:[] for k in EDITORIAS}
+    for a in accepted:
+        area=a.get('area',a.get('category'))
+        if area in groups:groups[area].append(a)
+    out=[];counts={a:0 for a in EDITORIAS};seen_titles=[]
+    def take(a):
+        area=a.get('area',a.get('category'))
+        if counts.get(area,0)>=AREAS_CAPS[area] or any(near_duplicate(a['title'],b) for b in seen_titles):return False
+        out.append(a);seen_titles.append(a['title']);counts[area]+=1;return True
+    # Dar espaço inicial a cada nicho disponível, sem reservar vagas vazias.
+    for n in range(2):
+        for area in EDITORIAS:
+            if len(out)>=MAX_TOTAL_NEWS:break
+            pool=groups[area]
+            if len(pool)>n:take(pool[n])
+    # Completar por relevância e prioridade do modelo até no máximo 40.
+    rest=[a for a in accepted if a['id'] not in {b['id'] for b in out}]
+    for a in rest:
+        if len(out)>=MAX_TOTAL_NEWS:break
+        take(a)
+    assert len(out)<=MAX_TOTAL_NEWS
+    print(f'Curadoria SINAL 7.0: {len(out)}/{MAX_TOTAL_NEWS} notícias realmente úteis (teto global).',counts)
+    return out
 
 
 def clean(raw):
@@ -228,7 +333,7 @@ def gather():
                 if not title or not link.startswith('https://'):
                     continue
                 content=(' '+title+' '+snippet+' ').lower()
-                if any(x in content for x in BADWORDS):
+                if any(x in (' '+title.lower()+' ') for x in BADWORDS):
                     continue
                 scores={c:sum(content.count(w) for w in words) for c,words in KEYWORDS.items()}
                 score=max(scores.values())
@@ -270,14 +375,12 @@ def youtube_recent_hits():
     max_days=7  # Diferente das noticias: referência visual pode ter ciclo mais longo.
     published_after=(NOW-dt.timedelta(days=max_days)).isoformat().replace('+00:00','Z')
     video_queries=(
-        'brand campaign behind the scenes',
-        'creative advertising campaign 2026',
-        'viral brand marketing commercial',
-        'creator collaboration brand partnership',
-        'short form video editing creative hook',
-        'run club sports brand activation',
-        'creative agency campaign case study',
-        'new product launch branding design',
+        'official brand advertising campaign 2026 case study',
+        'brand campaign creative commercial 2026',
+        'creator x brand collaboration campaign 2026',
+        'meta ads creative performance case study',
+        'brand running club activation race marketing',
+        'brand new product launch creative campaign 2026',
     )
     raw=[]
     for query in video_queries:
@@ -312,25 +415,37 @@ def youtube_recent_hits():
             hours=(NOW-date).total_seconds()/3600
             if not (0<hours<max_days*24):continue
             views=int(video.get('statistics',{}).get('viewCount','0'))
-            if views<2500:continue
+            if views<5000:continue
             rate=round(views/max(2,hours)*24)
             vid=video['id']
             if not re.fullmatch(r'[A-Za-z0-9_-]{11}',vid):continue
             title=clean(video['snippet']['title'])
+            description=clean(video['snippet'].get('description',''))
             if not title:continue
+            # Radar não é tutorial genérico, gossip, opinião esportiva ou renda fácil.
+            if STOP_TOPICS.search(title+' '+description):continue
+            vt=normalized_terms(title)
+            vd=normalized_terms(description)
+            good=('campaign','commercial','advertising','ad creative','brand activation',
+                  'brand collaboration','brand partnership','campaign breakdown',
+                  'case study','ad campaign','marketing strategy','brand launch',
+                  'running club','social media campaign','meta ads','creative testing')
+            if not any(x in vt or x in vd for x in good):continue
+            if any(x in vt for x in ('tutorial','make money','how to get rich','get rich','reaction','drama','learn in 20','million dollars a month')):continue
+            if rate<900:continue
             thumb=video['snippet'].get('thumbnails',{}).get('high',{}).get('url','')
             channel=clean(video['snippet'].get('channelTitle',''))
             results.append({'title':title,'url':'https://www.youtube.com/watch?v='+vid,
                 'platform':'YouTube','language':'EN','published_at':date.date().isoformat(),
                 'source':channel,'views':views,'views_per_day':rate,
                 'verification':'Dados públicos de visualização via YouTube Data API. Não comprova viralidade.',
-                'insight':f'{views:,} visualizações públicas; aproximadamente {rate:,} por 24h desde a publicação. Observe gancho, edição e linguagem da campanha.',
+                'insight':f'{views:,} visualizações públicas; média estimada de {rate:,} visualizações por 24h desde a publicação. Analise o gancho, a oferta e a execução criativa; este número não comprova conversão.',
                 'image':thumb if thumb.startswith('https://') else ''})
         except (KeyError,TypeError,ValueError):
             continue
     results.sort(key=lambda v:(v['views_per_day'],v['views']),reverse=True)
     print('Radar Internacional:',len(results),'vídeos analisados,',min(20,len(results)),'selecionados')
-    return results[:MAX_PER_SECTION]
+    return results[:12]
 
 
 def social_videos():
@@ -360,31 +475,63 @@ def social_videos():
 
 def ai_editorial(news):
     key=os.environ.get('OPENAI_API_KEY','').strip()
-    if not key:
-        return None
-    brief=[{k:a[k] for k in ('id','title','summary','source','category','published_at','area')} for area in EDITORIAS for a in [x for x in news if x.get('area')==area][:2]]
-    candidates=[{'id':a['id'],'area':a.get('area',a.get('category')),'title':a['title'],'published_at':a['published_at'],'source':a['source']} for a in news]
-    instruction="""Você é um editor brasileiro de notícias de negócios para o SINAL, publicação SOMMOS ALTUM. Use SOMENTE dados fornecidos de título/resumo de feeds, não matérias completas. NUNCA fabrique eventos, números, afirmações, URLs ou métricas sociais. Responda SOMENTE JSON válido com as chaves selected_ids_by_area, articles, ideas, opportunity e signal.
-selected_ids_by_area: objeto mapeando CADA editora ao ARRAY COMPLETO dos IDs relevantes, em ordem de prioridade. Quando houver 10 ou mais candidatos confiáveis de uma editoria, escolha DE 10 A 20 IDs, não só os dois destaques. Se houver menos que 10 fontes úteis, selecione menos; não invente. Use o array all_candidates_for_selection para selecionar, não apenas featured_for_writing. Selecione 10-20 IDs por editoria de maneira independente, nunca apenas 10-20 no jornal inteiro.
-articles: objetos com id, title, summary, why e action SOMENTE para os poucos destaques em featured_for_writing. São análises complementares, e o código PRESERVA os títulos/resumos exatos do feed para tradução subsequente. Não transforme valores monetários: US$100.000 e R$100.000 não são equivalentes. Preserve quantias, países, nomes e datas.
-ideas: exatamente 3 ideias executáveis e reais, cada uma com campos: title (título direto), project (SOMENTE o nome da marca escolhida entre SOMMOS ALTUM, Migo Telemedicina, Corre Cristão, MOOV, LEÇAI, ou "Aplicação geral"), description (proposta específica), objective (resultado que se quer testar), steps (array de 3 a 5 passos acionáveis, específicos e factíveis em até um dia), deliverable (entrega concreta do dia), metric (um indicador mensurável), source_id (id verdadeiro de uma notícia em featured_for_writing que inspirou o teste). Não invente campanhas, parcerias ou funcionalidades. Importante: MOOV e Corre Cristão são projetos de corrida, Migo Telemedicina é de saúde, LEÇAI é produto de açaí e SOMMOS ALTUM é agência de estratégia e comunicação. NUNCA escreva "MOOV Telemedicina". Quando a notícia for apenas contexto, apresente a ideia como hipótese para experimentar, não fato comprovado. opportunity: title, description, tag. signal: texto com hipótese explícita.
-Em textos de why/action, diferencie teste de lançamento, hipótese de fato, ressalve fonte secundária, evite fatos não verificados. Conecte ações a Corre Cristão, MOOV, Migo Telemedicina, SOMMOS ALTUM ou LEÇAI quando pertinente. Sem notícias pesadas. Uma manchete de RSS não comprova o artigo inteiro."""
-    payload={"model":os.environ.get('OPENAI_MODEL','gpt-4.1-mini'),"input":[{"role":"system","content":instruction},{"role":"user","content":json.dumps({"featured_for_writing":brief,"all_candidates_for_selection":candidates,"limits":{"target_min":MIN_PER_SECTION,"max":MAX_PER_SECTION}},ensure_ascii=False)}],"text":{"format":{"type":"json_object"}}}
+    if not key:return None
+    # A IA só recebe manchetes realmente coletadas; nunca pode inventar notícia.
+    candidates=[{'id':a['id'],'area':a.get('area'), 'title':a['title'],
+                 'summary':a.get('summary','')[:175], 'published_at':a['published_at'],
+                 'source':a['source'],'editorial_score':a.get('editorial_score',0)} for a in news]
+    instruction="""Você é o editor-chefe do SINAL 7.0, jornal de inteligência APLICÁVEL, 100% em português brasileiro.
+Seu leitor é um estrategista que opera agências de marketing e branding, marcas e e-commerce,
+eventos de corrida de rua no Brasil, além de uma empresa de telemedicina (Migo).
+Não interessa vida de pessoas, famosos, Anitta, entretenimento, gossip, resultados de futebol,
+política genérica, crimes, notícia local geral, empreendedorismo vago, resultados financeiros
+sem método, nem corridas como metáfora ou notícia genérica sobre competição.
+Prioridade absoluta: mudanças REALMENTE aplicáveis na Meta Ads, Google Ads, Instagram,
+TikTok, YouTube, formatos e distribuição, CTR/CAC/ROAS, IA para fluxos de trabalho,
+criativos de anúncios, casos replicáveis de marcas, ativações de running clubs e corridas
+em TODO O BRASIL, telemedicina, saúde corporativa, psicologia, NR-1 e saúde digital
+somente quando exista mudança operacional/comercial verificável.
+Cada item selecionado deve ter uma consequência prática e explicável: 'O que posso testar
+amanhã, qual decisão isso afeta, qual métrica observar?'. Se não souber responder,
+EXCLUA. Classifique novidades TESTADAS como teste, não como função já liberada.
+Use SOMENTE títulos e resumos fornecidos; nunca invente dados, previsões, impactos,
+recursos lançados, eficácia clínica, datas, percentuais ou regulamentações.
+Responda JSON rigoroso com: selected_ids (array de ATÉ 40 IDs encontrados, em ordem de
+relevância prática, sem duplicações), ideas (exatamente 3), opportunity, signal.
+Não precisa atingir 40; entre menos conteúdo e conteúdo fraco, escolha menos.
+No máximo 8 por tema. Há 10 editorias. Equilibre oportunidades, sem forçar quotas.
+As 3 ideias devem se inspirar em uma notícia selecionada, incluir cada uma:
+title, project (uma destas marcas: SOMMOS ALTUM, Migo Telemedicina, Corre Cristão,
+MOOV, LEÇAI ou Aplicação geral), description, objective, steps (3-5 ações específicas
+factíveis em um dia), deliverable, metric e source_id (ID verdadeiro escolhido).
+Escolha preferencialmente uma estratégia de marketing/plataforma, uma de RUN e uma
+para a Migo, se houver fonte relevante nesses nichos; nunca invente casos.
+Migo TELEMEDICINA NÃO É MOOV, que é a corrida. Não misture marcas.
+A experiência de corrida pode se beneficiar de marcas, comunidade, percurso, inscrições,
+patrocínios, patamares, conteúdo, captação e retenção. Em telemedicina priorize
+acesso, aquisição, benefício para empregadores e comunicação ética, sem promessas médicas.
+Ideias não são fatos, explicite hipótese e teste antes de escala.
+opportunity: title,description,tag com oportunidade aplicável.
+signal: hipótese fraca, não afirmar tendência confirmada sem dados.
+Mantenha marcas, datas, preços, valores e moedas como na fonte.
+Responda JSON, sem markdown."""
+    payload={'model':os.environ.get('OPENAI_MODEL','gpt-4.1-mini'),
+      'input':[{'role':'system','content':instruction},{'role':'user','content':json.dumps({
+         'edition_goal':'até 40 notícias de alto valor prático NO TOTAL, não por editoria',
+         'candidate_articles':candidates},ensure_ascii=False)}],
+      'text':{'format':{'type':'json_object'}}}
     try:
         response=requests.post('https://api.openai.com/v1/responses',json=payload,
-                               headers={'Authorization':'Bearer '+key,'Content-Type':'application/json'},timeout=110)
+            headers={'Authorization':'Bearer '+key,'Content-Type':'application/json'},timeout=120)
         response.raise_for_status()
         result=response.json()
-        raw=result.get('output_text')
-        if not raw:
-            raw=''.join(part.get('text','') for item in result.get('output',[]) for part in item.get('content',[]) if part.get('type')=='output_text')
+        raw=result.get('output_text') or ''.join(x.get('text','') for item in result.get('output',[]) for x in item.get('content',[]) if x.get('type')=='output_text')
         obj=json.loads(raw)
-        if not isinstance(obj.get('articles'),list) or not isinstance(obj.get('ideas'),list):
-            raise ValueError('Curadoria incompleta')
-        print('Curadoria com IA concluída.')
+        if not isinstance(obj.get('selected_ids'),list):raise ValueError('IA não retornou selected_ids')
+        print('Curadoria com IA concluída:',len(obj['selected_ids']),'IDs solicitados; validação e teto de 40 serão aplicados.')
         return obj
     except Exception as exc:
-        print('IA indisponível. Aplicando curadoria básica:',str(exc)[:180],file=sys.stderr)
+        print('IA de seleção indisponível. Aplicando curadoria de regras:',str(exc)[:180],file=sys.stderr)
         return None
 
 
@@ -409,88 +556,88 @@ def default_issue(news):
 
 
 def build_issue(news, edited):
-    source_by_id={a['id']:a for a in news}
-    base=default_issue(news)
+    selected=select_global_40(news, edited)
+    base=default_issue(selected)
     if edited:
-        articles=[]
-        for item in edited.get('articles',[]):
-            a=source_by_id.get(item.get('id'))
-            if not a or a['id'] in [x['id'] for x in articles]:
-                continue
-            verified={k:v for k,v in a.items() if k not in ('score','published_utc')}
-            # Títulos e resumos permanecem exatamente como vieram do RSS até a
-            # tradução final. A análise da IA não pode trocar US$ por R$, mudar
-            # números, aumentar certezas ou acrescentar fatos na manchete.
-            for key in ('why', 'action'):
-                val=item.get(key)
-                if isinstance(val,str) and val.strip():
-                    verified[key]=val.strip()[:480]
-            verified['verification']='Curadoria baseada em manchete e resumo do RSS; consulte a fonte original.'
-            articles.append(verified)
-        if articles:
-            # Não descarte notícias verificadas só porque a IA escolheu poucos
-            # destaques para enriquecer. O editorial mantém a seleção inteira.
-            enriched_by_id={a['id']:a for a in articles}
-            base['articles']=[enriched_by_id.get(a['id'],a) for a in base['articles']]
-        if len(edited.get('ideas',[]))==3:
-            base['ideas']=[x for x in edited['ideas'] if isinstance(x,dict)][:3]
-        if isinstance(edited.get('opportunity'),dict):
-            base['opportunity']=edited['opportunity']
-        if isinstance(edited.get('signal'),str):
-            base['signal']=edited['signal']
-    # A IA participa da decisão editorial sobre QUANTOS entram em cada área.
-    # Só pode escolher IDs que foram realmente encontrados nos feeds; nunca cria links.
-    if edited and isinstance(edited.get('selected_ids_by_area'),dict):
-        selections=edited['selected_ids_by_area']
-        per_area={area:[a for a in base['articles'] if a.get('area',a.get('category'))==area] for area in EDITORIAS}
-        selected=[]
-        for area in EDITORIAS:
-            pool=per_area[area]
-            ids=selections.get(area)
-            if not isinstance(ids,list) or not ids:
-                selected.extend(pool[:MAX_PER_SECTION])
-                continue
-            wanted={id for id in ids if isinstance(id,str)}
-            matched=[a for a in pool if a['id'] in wanted][:MAX_PER_SECTION]
-            # Uma IA que recebeu dois destaques para redação NÃO pode restringir
-            # a editoria inteira a dois itens. Se ela devolver menos de dez
-            # IDs e a curadoria RSS já selecionou dez fontes com data e URL,
-            # complete SOMENTE com esse conjunto verificado, sem criar notícia.
-            target=min(MIN_PER_SECTION,len(pool))
-            if len(matched)<target:
-                known={a['id'] for a in matched}
-                for candidate in pool:
-                    if candidate['id'] not in known:
-                        matched.append(candidate)
-                        known.add(candidate['id'])
-                    if len(matched)>=target:
-                        break
-            selected.extend(matched[:MAX_PER_SECTION])
-            print(f'Seleção {area}: {len(matched[:MAX_PER_SECTION])} notícias (RSS elegíveis: {len(pool)})')
-        base['articles']=selected
-
+        valid_ideas=[]
+        for idea in edited.get('ideas',[]) if isinstance(edited.get('ideas'),list) else []:
+            if not isinstance(idea,dict):continue
+            if not all(isinstance(idea.get(k),str) and idea[k].strip() for k in ('title','project','description','objective','deliverable','metric')):continue
+            steps=idea.get('steps')
+            if not isinstance(steps,list) or len([x for x in steps if isinstance(x,str) and x.strip()])<3:continue
+            item={k:idea[k] for k in ('title','project','description','objective','deliverable','metric')}
+            item['steps']=[x[:400].strip() for x in steps if isinstance(x,str) and x.strip()][:5]
+            sid=idea.get('source_id')
+            if isinstance(sid,str) and sid in {a['id'] for a in selected}:item['source_id']=sid
+            valid_ideas.append(item)
+        if len(valid_ideas)==3:base['ideas']=valid_ideas
+        if isinstance(edited.get('opportunity'),dict):base['opportunity']=edited['opportunity']
+        if isinstance(edited.get('signal'),str):base['signal']=edited['signal']
     try:
         prior=json.loads((DATA/'archive'/'index.json').read_text(encoding='utf-8'))
         existing_dates=[e.get('date') for e in prior.get('editions',[])]
-    except Exception:
-        existing_dates=[]
+    except Exception:existing_dates=[]
     highlights=[]
     for area in EDITORIAS:
         article=next((a for a in base['articles'] if a.get('area',a.get('category'))==area),None)
-        highlights.append({'area':area,'article_id':article['id'] if article else None,'status':'verified_feed' if article else 'awaiting_source'})
-    issue={
-        'highlights':highlights,
-        'edition_date':TODAY,'generated_at':NOW.isoformat(),
+        highlights.append({'area':area,'article_id':article['id'] if article else None,
+          'status':'verified_feed' if article else 'awaiting_source'})
+    return {
+        'highlights':highlights,'edition_date':TODAY,'generated_at':NOW.isoformat(),
         'edition_number':len(set(existing_dates+[TODAY])),
-        'edition_note':f'Notícias de até {LOOKBACK} horas; cases de marcas, criadores, local e RUN podem ter janelas de 7 a 14 dias, indicadas pela data; interpretações editoriais são hipóteses.',
-        'section_policy':{'min_target':MIN_PER_SECTION,'max_per_section':MAX_PER_SECTION,'no_filler':True,'case_windows_days':SECTION_LOOKBACK},
-        'section_counts':{area:sum(1 for a in base['articles'] if a.get('area',a.get('category'))==area) for area in EDITORIAS},
-        'articles':base['articles'],'virals':list({x['url']:x for x in (social_videos()+youtube_recent_hits())}.values())[:MAX_PER_SECTION],
-        'ideas':base['ideas'],'opportunity':base['opportunity'],'signal':base['signal']
-    }
+        'edition_note':'Até 40 sinais acionáveis no total. A IA pode selecionar menos; não usamos notícias fracas para preencher vagas. Datas e fontes identificadas.',
+        'section_policy':{'edition_cap':MAX_TOTAL_NEWS,'min_per_section':0,'no_filler':True,
+          'actionable_only':True,'case_windows_days':SECTION_LOOKBACK},
+        'section_counts':{a:sum(1 for x in base['articles'] if x.get('area',x.get('category'))==a) for a in EDITORIAS},
+        'articles':base['articles'],
+        'virals':list({x['url']:x for x in (social_videos()+youtube_recent_hits())}.values())[:12],
+        'ideas':base['ideas'],'opportunity':base['opportunity'],'signal':base['signal']}
+
+
+def enrich_actions_ptbr(issue):
+    """Explica a decisão e o teste prático para CADA uma das até 40 notícias, sem criar fatos."""
+    key=os.environ.get('OPENAI_API_KEY','').strip()
+    items=issue.get('articles',[])
+    if not items:return issue
+    instruction="""Você é um editor de inteligência aplicada do SINAL. Gere em português brasileiro
+EXATAMENTE dois campos para CADA notícia recebida, sem inventar fatos:
+why: 1-2 frases específicas que expliquem o impacto operacional/comercial, com base SOMENTE
+na manchete/resumo; condicional para testes/rumores, jamais afirmar efeito ou causalidade
+não demonstrada.
+action: roteiro concreto de experimento em 1-3 passos para uma operação de
+marketing/tráfego, e-commerce, marca, corrida nacional ou Migo Telemedicina;
+inclua o QUE fazer, COMO testar e QUAL métrica acompanhar. Nunca recomendar
+prática médica individual, diagnóstico nem alegar atendimento clínico sem respaldo.
+Nunca atribua aumento de conversão, volume de vendas ou efeito clínico sem dados.
+Não mude títulos, IDs, números, moedas nem nomes; não cite notícias que não recebeu.
+Retorne JSON {"items":[{"id":"id exato","why":"...","action":"..."}]}.
+Todos os IDs devem ser devolvidos, sem faltantes."""
+    groups=[items[i:i+8] for i in range(0,len(items),8)]
+    def process(batch):
+        request={'items':[{'id':a['id'],'title':a['title'],'summary':a['summary'][:260],
+              'area':a.get('area'),'source':a['source']} for a in batch]}
+        response=_openai_json_with_retry(instruction,request,key,attempts=2)
+        result=response.get('items',[])
+        expected={a['id'] for a in batch};mapping={}
+        for r in result:
+            if isinstance(r,dict) and r.get('id') in expected and all(isinstance(r.get(k),str) and r[k].strip() for k in ('why','action')):
+                mapping[r['id']]={'why':r['why'].strip()[:460],'action':r['action'].strip()[:560]}
+        if set(mapping)!=expected:raise RuntimeError('IA retornou plano incompleto para as notícias')
+        return mapping
+    all_results={}
+    try:
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            futures=[pool.submit(process,b) for b in groups]
+            for future in as_completed(futures):all_results.update(future.result())
+    except Exception as exc:
+        # Não inventar uma estratégia como se fosse derivada da matéria; retorno neutro.
+        print('Análise individual indisponível, usando instrução explícita de validação:',str(exc)[:120],file=sys.stderr)
+        return issue
+    for a in items:
+        a.update(all_results[a['id']])
+        a['analysis_type']='hipotese_estrategica_fundamentada_em_rss'
+    print('Estratégias práticas geradas para',len(items),'notícias.')
     return issue
-
-
 
 
 def _openai_json_with_retry(instruction, input_data, key, attempts=3):
@@ -706,7 +853,7 @@ def add_editorial_images(issue):
         pool=[a for a in articles if a.get('area',a.get('category'))==area and not a.get('image')]
         candidates.extend(pool[:3])
     # Evitar 100 requests e reduzir latência em publicação diária.
-    candidates=candidates[:30]
+    candidates=candidates[:32]
     with ThreadPoolExecutor(max_workers=6) as pool:
         futures={pool.submit(_article_image_from_publisher,a):a for a in candidates}
         for f in as_completed(futures):
@@ -748,6 +895,7 @@ def main():
         return 0
     edited=ai_editorial(news)
     issue=build_issue(news,edited)
+    issue=enrich_actions_ptbr(issue)
     issue=translate_issue_ptbr(issue)
     issue=add_editorial_images(issue)
     write_issue(issue)

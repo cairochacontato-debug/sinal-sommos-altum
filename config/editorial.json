@@ -1,0 +1,23 @@
+{
+  "edition_cap": 40,
+  "model": "curadoria acionavel",
+  "run_scope": "Brasil inteiro, prioridade a experiências, patrocínios, comunidades e operação de eventos",
+  "health_focus": [
+    "telemedicina",
+    "saúde corporativa",
+    "saúde digital",
+    "psicologia",
+    "riscos psicossociais NR-1",
+    "benefícios para colaboradores"
+  ],
+  "exclude": [
+    "fofoca de celebridades",
+    "vida pessoal",
+    "crimes e acidentes",
+    "política sem aplicação",
+    "corrida como metáfora",
+    "resultados financeiros sem método",
+    "notícias genéricas sem teste viável"
+  ],
+  "policy": "NÃO usar para inventar matéria ou completar cota. Teto máximo global de 40 por edição."
+}

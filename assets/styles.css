@@ -648,3 +648,9 @@ button.idea-card:focus-visible { outline:3px solid var(--accent);outline-offset:
 .idea-dialog-disclaimer{font-size:11px!important;color:var(--muted);border-top:1px solid var(--line);margin-top:22px;padding-top:16px;}
 .idea-dialog-content .idea-dialog-copy{background:#2c3b7d;color:white;border-color:#2c3b7d;}
 @media(max-width:600px){.idea-dialog-steps li{padding:13px;gap:11px;}.idea-dialog-content h2{font-size:29px;}}
+
+/* SINAL 7.0: menu acessível com 10 editorias, sem alterar identidade visual */
+.nav-tabs{overflow-x:auto;scrollbar-width:thin;scroll-snap-type:x proximity}
+.nav-tabs .nav-tab{white-space:nowrap;flex-shrink:0;scroll-snap-align:start}
+.idea-card{cursor:pointer}
+.idea-card:focus-visible{outline:3px solid #72a3e7;outline-offset:4px}
