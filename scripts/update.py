@@ -14,8 +14,10 @@ import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from urllib.parse import urlparse, urlencode
+from urllib.parse import urlparse, urlencode, urljoin
 from zoneinfo import ZoneInfo
+from html.parser import HTMLParser
+import ipaddress
 
 import feedparser
 import requests
@@ -29,7 +31,7 @@ LOOKBACK = 48
 MAX_AGE = dt.timedelta(hours=LOOKBACK)
 MIN_PER_SECTION = 10  # meta de curadoria, nunca preencher artificialmente
 MAX_PER_SECTION = 20  # teto absoluto por editoria e por edição
-SECTION_LOOKBACK = {'Marcas':14, 'Local':14, 'RUN':7, 'Creators':7, 'Brand+Creators':14}  # estudos e casos têm ciclos mais longos
+SECTION_LOOKBACK = {'Marcas':14, 'Local':14, 'RUN':14, 'Creators':7, 'Brand+Creators':14}  # estudos e casos têm ciclos mais longos
 AGENT = 'SinalNewsReader/1.1 (personal curated news reader; contact repo owner)'
 
 FEEDS = [
@@ -78,11 +80,20 @@ THEME_QUERIES = {
         ('emerging brands rebrand retail launch expansion', 'en-US','US','US:en'),
         ('marcas novas branding reposicionamento expansão lançamento', 'pt-BR','BR','BR:pt')],
     'Local': [
-        ('Salvador Bahia empresa inauguração expansão restaurante cafeteria negócios', 'pt-BR','BR','BR:pt'),
-        ('Bahia marcas regionais empreendedorismo comércio varejo lojas', 'pt-BR','BR','BR:pt')],
+        ('(inaugura OR inauguração OR expande) (Salvador OR Bahia) loja negócio', 'pt-BR','BR','BR:pt'),
+        ('empreendedorismo (Salvador OR Bahia) marcas empresas', 'pt-BR','BR','BR:pt'),
+        ('(restaurante OR cafeteria OR varejo) (Salvador OR Bahia) inauguração', 'pt-BR','BR','BR:pt'),
+        ('(franquia OR startup OR investimento) (Salvador OR Bahia)', 'pt-BR','BR','BR:pt'),
+        ('site:atarde.com.br (economia OR inauguração OR empresa) Salvador', 'pt-BR','BR','BR:pt'),
+        ('site:correio24horas.com.br (negócios OR empreendedorismo OR comércio) Bahia', 'pt-BR','BR','BR:pt')],
     'RUN': [
-        ('corrida de rua treinão running club maratona Salvador Bahia Brasil', 'pt-BR','BR','BR:pt'),
-        ('running brands run club race activation sport event', 'en-US','US','US:en')],
+        ('(corrida OR maratona OR treinão) (Salvador OR Bahia)', 'pt-BR','BR','BR:pt'),
+        ('(inscrições OR calendário) corrida Salvador Bahia', 'pt-BR','BR','BR:pt'),
+        ('(corrida OR treinão) (Piatã OR Patamares OR Barra OR Ondina) Salvador', 'pt-BR','BR','BR:pt'),
+        ('(run club OR grupo de corrida) (Salvador OR Bahia)', 'pt-BR','BR','BR:pt'),
+        ('(corrida de rua OR running) marcas ativações patrocínio', 'pt-BR','BR','BR:pt'),
+        ('running club brand activation sports marketing race', 'en-US','US','US:en'),
+        ('site:ge.globo.com/ba corrida Salvador inscrição', 'pt-BR','BR','BR:pt')],
 }
 AREA_TERMS = {
     'Marketing': ['marketing','advertis','publicidade','campanha','creative','criativo','branding','brand'],
@@ -133,7 +144,7 @@ def query_theme(area, cfg):
                 'source':publisher,'url':url_original,
                 'published_at':published.astimezone(TZ).date().isoformat(),
                 'published_utc':published.isoformat(),'language':'PT' if hl.startswith('pt') else 'EN',
-                'score': 3, 'verification':'Manchete e resumo redistribuídos via RSS do Google Notícias; consulte a fonte original.',
+                'score': 6 if (area in ('Local', 'RUN') and any(geo in words for geo in ('salvador', 'bahia', 'feira de santana', 'piaçabuçu', 'patamares', 'piatã'))) else 3, 'verification':'Manchete e resumo redistribuídos via RSS do Google Notícias; consulte a fonte original.',
                 **({'image':entry_image(ent)} if entry_image(ent) else {})})
         print(f'Radar {area}: {len(output)} notícias encontradas')
     except Exception as exc:
@@ -246,56 +257,80 @@ def gather():
 
 
 def youtube_recent_hits():
-    """Opcional: utiliza YouTube Data API para medir visualizações públicas recentes.
+    """Busca vídeos PUBLICADOS com fonte e métricas da API oficial do YouTube.
 
-    Uma taxa alta de visualizações é apenas sinal observado, não comprovação
-    de que o vídeo 'viralizou' ou que terá o mesmo resultado no Brasil.
+    A chave é opcional. Nunca chama qualquer vídeo de viral só por sua contagem
+    absoluta de views; cada card registra visualizações e tempo desde a publicação.
+    Busca em inglês para encontrar boas referências internacionais.
     """
     key=os.environ.get('YOUTUBE_API_KEY','').strip()
     if not key:
+        print('Radar Internacional: YOUTUBE_API_KEY não configurada. Sem vídeos automáticos.')
         return []
-    published_after=(NOW-MAX_AGE).isoformat().replace('+00:00','Z')
-    candidates=[]
-    for query in ('brand marketing campaign', 'creative video ads'):
+    max_days=7  # Diferente das noticias: referência visual pode ter ciclo mais longo.
+    published_after=(NOW-dt.timedelta(days=max_days)).isoformat().replace('+00:00','Z')
+    video_queries=(
+        'brand campaign behind the scenes',
+        'creative advertising campaign 2026',
+        'viral brand marketing commercial',
+        'creator collaboration brand partnership',
+        'short form video editing creative hook',
+        'run club sports brand activation',
+        'creative agency campaign case study',
+        'new product launch branding design',
+    )
+    raw=[]
+    for query in video_queries:
         try:
-            response=requests.get('https://www.googleapis.com/youtube/v3/search',params={
-                'part':'snippet','q':query,'type':'video','order':'viewCount',
-                'publishedAfter':published_after,'maxResults':12,'relevanceLanguage':'en','key':key
-            },timeout=20)
-            response.raise_for_status()
-            candidates.extend(response.json().get('items',[]))
-        except Exception as exc:
-            print('YouTube indisponível:',str(exc)[:140],file=sys.stderr)
-    candidates_by_id={x.get('id',{}).get('videoId'):x for x in candidates if x.get('id',{}).get('videoId')}
-    if not candidates_by_id:
+            res=requests.get('https://www.googleapis.com/youtube/v3/search',params={
+                'part':'snippet','q':query,'type':'video','order':'date',
+                'publishedAfter':published_after,'maxResults':15,
+                'relevanceLanguage':'en','key':key}, timeout=17)
+            res.raise_for_status()
+            raw.extend(res.json().get('items',[]))
+        except (requests.RequestException, ValueError) as exc:
+            print('YouTube indisponível:', query, str(exc)[:160],file=sys.stderr)
+    by_id={x.get('id',{}).get('videoId'):x for x in raw if x.get('id',{}).get('videoId')}
+    if not by_id:
+        print('Radar Internacional: API respondeu sem vídeos válidos.')
         return []
-    try:
-        response=requests.get('https://www.googleapis.com/youtube/v3/videos',params={
-            'part':'statistics,snippet','id':','.join(candidates_by_id.keys()),'key':key
-        },timeout=20)
-        response.raise_for_status()
-        items=response.json().get('items',[])
-    except Exception as exc:
-        print('Estatísticas YouTube indisponíveis:',str(exc)[:140],file=sys.stderr)
-        return []
-    hits=[]
-    for v in items:
+    ids=list(by_id)
+    details=[]
+    for start in range(0,len(ids),50):
         try:
-            date=dt.datetime.fromisoformat(v['snippet']['publishedAt'].replace('Z','+00:00'))
-            elapsed=max(1,(NOW-date).total_seconds()/3600)
-            views=int(v.get('statistics',{}).get('viewCount','0'))
-            rate=views*24/elapsed
-            if views<20000 or rate<10000 or elapsed>48:
-                continue
-            title=clean(v['snippet']['title'])
-            url='https://www.youtube.com/watch?v='+v['id']
-            hits.append({'title':title,'url':url,'platform':'YouTube','language':'EN',
-                         'insight':f'{views:,} visualizações públicas em aproximadamente {elapsed:.0f} horas; sinal de tração, não comprovação de viralidade. Analise o gancho e adapte a ideia ao contexto brasileiro.',
-                         'image':v.get('snippet',{}).get('thumbnails',{}).get('high',{}).get('url','')})
+            res=requests.get('https://www.googleapis.com/youtube/v3/videos',params={
+                'part':'statistics,snippet,status','id':','.join(ids[start:start+50]),'key':key}, timeout=17)
+            res.raise_for_status()
+            details.extend(res.json().get('items',[]))
+        except (requests.RequestException, ValueError) as exc:
+            print('Dados de vídeo indisponíveis:',str(exc)[:160],file=sys.stderr)
+    results=[]
+    for video in details:
+        try:
+            if video.get('status',{}).get('privacyStatus','public')!='public':continue
+            date=dt.datetime.fromisoformat(video['snippet']['publishedAt'].replace('Z','+00:00'))
+            hours=(NOW-date).total_seconds()/3600
+            if not (0<hours<max_days*24):continue
+            views=int(video.get('statistics',{}).get('viewCount','0'))
+            if views<2500:continue
+            rate=round(views/max(2,hours)*24)
+            vid=video['id']
+            if not re.fullmatch(r'[A-Za-z0-9_-]{11}',vid):continue
+            title=clean(video['snippet']['title'])
+            if not title:continue
+            thumb=video['snippet'].get('thumbnails',{}).get('high',{}).get('url','')
+            channel=clean(video['snippet'].get('channelTitle',''))
+            results.append({'title':title,'url':'https://www.youtube.com/watch?v='+vid,
+                'platform':'YouTube','language':'EN','published_at':date.date().isoformat(),
+                'source':channel,'views':views,'views_per_day':rate,
+                'verification':'Dados públicos de visualização via YouTube Data API. Não comprova viralidade.',
+                'insight':f'{views:,} visualizações públicas; aproximadamente {rate:,} por 24h desde a publicação. Observe gancho, edição e linguagem da campanha.',
+                'image':thumb if thumb.startswith('https://') else ''})
         except (KeyError,TypeError,ValueError):
             continue
-    hits.sort(key=lambda x:int(re.search(r'[0-9,]+',x['insight']).group(0).replace(',','')),reverse=True)
-    return hits[:20]
+    results.sort(key=lambda v:(v['views_per_day'],v['views']),reverse=True)
+    print('Radar Internacional:',len(results),'vídeos analisados,',min(20,len(results)),'selecionados')
+    return results[:MAX_PER_SECTION]
 
 
 def social_videos():
@@ -596,6 +631,95 @@ NÃO repita links, não modifique IDs e não adicione itens."""
     print('Tradução concluída:', len(tasks), 'itens em português (Brasil).')
     return issue
 
+class _OpenGraphParser(HTMLParser):
+    """Lê apenas meta OG/Twitter de uma página HTML (não o corpo da matéria)."""
+    def __init__(self):
+        super().__init__()
+        self.images=[]
+    def handle_starttag(self,tag,attrs):
+        if tag!='meta':return
+        d=dict(attrs)
+        attr=(d.get('property') or d.get('name') or '').lower()
+        if attr in ('og:image:secure_url','og:image','twitter:image','twitter:image:src'):
+            self.images.append(d.get('content','').strip())
+
+
+def _safe_external_url(raw):
+    try:
+        parsed=urlparse(str(raw))
+        host=(parsed.hostname or '').lower()
+        if parsed.scheme!='https' or not host or parsed.username or parsed.password:
+            return False
+        if host=='localhost' or host.endswith(('.local','.internal')) or host in ('news.google.com',):
+            return False
+        try:
+            ip=ipaddress.ip_address(host)
+            return ip.is_global
+        except ValueError:
+            return '.' in host
+    except (ValueError,TypeError):
+        return False
+
+
+def _article_image_from_publisher(article):
+    url=article.get('url','')
+    if not _safe_external_url(url):
+        return None
+    try:
+        res=requests.get(url,headers={'User-Agent':AGENT,'Accept':'text/html'},
+                         timeout=8,stream=True,allow_redirects=False)
+        if res.status_code!=200 or 'text/html' not in res.headers.get('Content-Type',''):
+            res.close();return None
+        # No redirects to internal URLs and no unbounded downloads.
+        raw=b''
+        for chunk in res.iter_content(chunk_size=8192):
+            raw+=chunk
+            if len(raw)>160_000:break
+        res.close()
+        parser=_OpenGraphParser()
+        parser.feed(raw.decode('utf-8','replace'))
+        for found in parser.images:
+            candidate=urljoin(url,found)
+            if _safe_external_url(candidate):
+                return candidate[:1000]
+    except (requests.RequestException, UnicodeError, ValueError) as exc:
+        print('Imagem de fonte indisponível:',article.get('source',''),str(exc)[:75],file=sys.stderr)
+    return None
+
+
+def add_editorial_images(issue):
+    """Tenta imagem de publisher nos destaques e cards iniciais.
+
+    O fallback visual atual do site continua quando o veículo não disponibiliza
+    metadados, bloqueia a leitura ou não permite hotlink. Imagem NÃO é prova
+    de autoria/endorso; manter crédito e abrir a matéria original.
+    """
+    articles=issue.get('articles',[])
+    for a in articles:
+        if a.get('image') and _safe_external_url(a['image']):
+            a['image_origin']='rss'
+        elif a.get('image'):
+            a.pop('image',None)
+    candidates=[]
+    # Primeiro todos os banners, depois 2 cards adicionais por editoria.
+    for area in EDITORIAS:
+        pool=[a for a in articles if a.get('area',a.get('category'))==area and not a.get('image')]
+        candidates.extend(pool[:3])
+    # Evitar 100 requests e reduzir latência em publicação diária.
+    candidates=candidates[:30]
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        futures={pool.submit(_article_image_from_publisher,a):a for a in candidates}
+        for f in as_completed(futures):
+            article=futures[f]
+            image=f.result()
+            if image:
+                article['image']=image
+                article['image_origin']='publisher_og'
+    print('Imagens editoriais reais:',sum(bool(a.get('image')) for a in articles),
+          'de',len(articles),'matérias; restante utiliza ilustrações locais.')
+    return issue
+
+
 def write_issue(issue):
     path=DATA/'archive'/f'{TODAY}.json'
     content=json.dumps(issue,indent=2,ensure_ascii=False)+'\n'
@@ -625,6 +749,7 @@ def main():
     edited=ai_editorial(news)
     issue=build_issue(news,edited)
     issue=translate_issue_ptbr(issue)
+    issue=add_editorial_images(issue)
     write_issue(issue)
     return 0
 
