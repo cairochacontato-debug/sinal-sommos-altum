@@ -631,3 +631,20 @@ button:disabled { opacity:.5;cursor:default; }
 @media (max-width:740px) {.section-coverage {font-size:12px}.nav-tabs {flex:1}}
 
 .watch-list-item[hidden] {display:none!important}
+
+
+/* SINAL / Para fazer hoje: cards interativos e plano de ação em modal */
+button.idea-card {
+  width:100%;font:inherit;color:inherit;text-align:left;cursor:pointer;appearance:none;
+}
+button.idea-card:hover .idea-brand,button.idea-card:focus-visible .idea-brand { text-decoration:underline;text-underline-offset:3px; }
+button.idea-card:focus-visible { outline:3px solid var(--accent);outline-offset:4px; }
+.idea-dialog-content .idea-dialog-tag {display:inline-block;color:var(--accent);background:var(--soft);border-radius:100px;padding:9px 13px;font-size:11px;font-weight:750;margin-bottom:15px;}
+.idea-dialog-content h2{margin-top:18px;}
+.idea-dialog-steps{display:grid;gap:11px;list-style:none;padding:0;margin:14px 0 25px;}
+.idea-dialog-steps li{display:flex;align-items:flex-start;gap:16px;border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:var(--soft);}
+.idea-dialog-steps li span{color:var(--accent);font-size:19px;font-weight:800;line-height:1.4;}
+.idea-dialog-steps li p{margin:0;flex:1;}
+.idea-dialog-disclaimer{font-size:11px!important;color:var(--muted);border-top:1px solid var(--line);margin-top:22px;padding-top:16px;}
+.idea-dialog-content .idea-dialog-copy{background:#2c3b7d;color:white;border-color:#2c3b7d;}
+@media(max-width:600px){.idea-dialog-steps li{padding:13px;gap:11px;}.idea-dialog-content h2{font-size:29px;}}

@@ -126,9 +126,56 @@
     const examples=[['filmmaker','Ganchos e narrativas','Observe como um vídeo abre a conversa.'],['editing','Edição e ritmo','Repare em cortes, tempo e enquadramento.'],['studio','Marcas e criadores','Como uma campanha ganha linguagem própria.']];
     $('viralCards').innerHTML=examples.map(x=>`<article class="viral-card example-card"><div class="viral-media"><img src="assets/editorial/${x[0]}.webp" loading="lazy" alt="Imagem ilustrativa de conteúdo criativo"/><span class="video-play" aria-hidden="true">✦</span></div><div class="viral-card-copy"><div class="type">FORMATO PARA ESTUDAR · DEMONSTRAÇÃO</div><h3>${x[1]}</h3><p>${x[2]}</p></div></article>`).join('')+`<p class="viral-note">Imagens conceituais para demonstrar o layout. Esta edição não contém vídeos virais verificados; quando forem encontrados, os cartões terão link direto para o conteúdo original.</p>`;
   }
+  // Cada ideia é um botão nativo, acessível por mouse, toque e teclado.
   function renderIdeas(){
     const imgs=['runners','creator','branding'];
-    $('ideasGrid').innerHTML=(state.edition.ideas||[]).slice(0,3).map((x,i)=>`<article class="idea-card"><div class="idea-media"><img src="assets/editorial/${imgs[i]}.webp" alt="Imagem ilustrativa da ideia" loading="lazy" /><span class="idea-number">0${i+1} ↗</span></div><div class="idea-copy"><div class="idea-brand-top">${safe(x.project)}</div><h3>${safe(x.title)}</h3><p>${safe(excerpt(x.description,148))}</p><div class="idea-brand">IDEIA PARA TESTAR ↗</div></div></article>`).join('');
+    $('ideasGrid').innerHTML=(state.edition.ideas||[]).slice(0,3).map((x,i)=>{
+      const label=String(x.project||'');
+      const projectLabel=label.length<70?label:'ESTRATÉGIA DO DIA';
+      return `<button type="button" class="idea-card" data-open-idea="${i}" aria-label="Ver estratégia completa: ${safe(x.title)}"><div class="idea-media"><img src="assets/editorial/${imgs[i]}.webp" alt="" loading="lazy" /><span class="idea-number">0${i+1} ↗</span></div><div class="idea-copy"><div class="idea-brand-top">${safe(projectLabel)}</div><h3>${safe(x.title)}</h3><p>${safe(excerpt(x.description,148))}</p><div class="idea-brand">VER ESTRATÉGIA COMPLETA <span aria-hidden="true">↗</span></div></div></button>`;
+    }).join('');
+  }
+  const asText=(value)=>typeof value==='string'?value.trim():'';
+  function ideaSteps(idea){
+    const fromData=Array.isArray(idea.steps)?idea.steps.map(s=>asText(typeof s==='string'?s:s?.description||s?.text)).filter(Boolean).slice(0,5):[];
+    if(fromData.length) return fromData;
+    // Edições antigas têm somente title/project/description: oferecer roteiro-base, sem alegar que a IA o escreveu.
+    return [
+      'Defina um objetivo mensurável para esta ideia e escolha o público específico que será alcançado.',
+      'Transforme a proposta acima em uma entrega pequena e verificável: roteiro, diagnóstico, protótipo ou ação piloto.',
+      'Execute um teste controlado, registre o resultado e decida o que manter ou melhorar antes de ampliar.'
+    ];
+  }
+  function ideaCopyText(idea){
+    const steps=ideaSteps(idea);
+    return [idea.title,'',idea.project||'', '', 'IDEIA',idea.description||'', '',
+      'OBJETIVO',idea.objective||'Transformar esta ideia em um teste prático.', '',
+      'PASSO A PASSO',...steps.map((s,i)=>`${i+1}. ${s}`),'',
+      'ENTREGA',idea.deliverable||'Um teste documentado e uma decisão para o próximo passo.',
+      'INDICADOR',idea.metric||'Defina antes do teste o indicador mais relevante para o seu objetivo.'].join('\n');
+  }
+  function openIdea(index){
+    const idea=(state.edition.ideas||[])[index];if(!idea)return;
+    const steps=ideaSteps(idea);
+    const legacy=!(Array.isArray(idea.steps)&&idea.steps.length);
+    const project=asText(idea.project);
+    const projectIsDescription=project.length>70;
+    const linked=(state.edition.articles||[]).find(a=>a.id===idea.source_id);
+    const row=(label,value)=>asText(value)?`<h4>${label}</h4><p>${safe(value)}</p>`:'';
+    $('dialogContent').innerHTML=`<div class="dialog-content idea-dialog-content"><div class="article-topic">SINAL / PARA FAZER HOJE · ESTRATÉGIA 0${index+1}</div><h2>${safe(idea.title||'Estratégia do dia')}</h2>
+      ${!projectIsDescription&&project?`<div class="idea-dialog-tag">${safe(project)}</div>`:''}
+      <p class="dialog-lead">${safe(idea.description||'Ideia selecionada para teste na sua operação.')}</p>
+      ${projectIsDescription?row('APLICAÇÃO SUGERIDA',project):''}
+      ${row('OBJETIVO',idea.objective||'Transformar esta ideia em um experimento prático antes de investir em escala.')}
+      <div class="dialog-separator"></div><h4>${legacy?'ROTEIRO INICIAL PARA EXECUTAR':'PLANO DE EXECUÇÃO'}</h4>
+      <ol class="idea-dialog-steps">${steps.map((step,i)=>`<li><span>${String(i+1).padStart(2,'0')}</span><p>${safe(step)}</p></li>`).join('')}</ol>
+      ${row('ENTREGA DO DIA',idea.deliverable||'Um teste pequeno documentado com responsáveis e próximo passo definidos.')}
+      ${row('COMO MEDIR',idea.metric||'Escolha um indicador antes da execução, de acordo com o público e o objetivo do teste.')}
+      ${linked?`<h4>NOTÍCIA QUE INSPIROU ESTA IDEIA</h4><p>${safe(linked.title)}</p><div class="dialog-actions"><a href="${safeUrl(linked.url)}" target="_blank" rel="noopener noreferrer">Ver fonte original ↗</a></div>`:''}
+      <p class="idea-dialog-disclaimer">${legacy?'Esta edição anterior não contém um plano detalhado; os passos acima são um roteiro genérico de execução.':'Sugestão de experimento editorial. Valide premissas e resultados com seus dados antes de escalar.'}</p>
+      <div class="dialog-actions"><button type="button" data-copy-idea="${index}" class="idea-dialog-copy">Copiar estratégia ↗</button><button type="button" data-close-idea>Fechar</button></div></div>`;
+    $('closeDialog').setAttribute('aria-label','Fechar janela');
+    const dlg=$('articleDialog');if(!dlg.open&&typeof dlg.showModal==='function')dlg.showModal();else if(!dlg.open)dlg.setAttribute('open','');
   }
   function renderInsights(){const o=state.edition.opportunity||{};$('opportunityTitle').textContent=o.title||'Uma oportunidade nasce de observar melhor.';$('opportunityText').textContent=o.description||'Volte amanhã para os novos sinais e experimentos.';$('opportunityTag').textContent=o.tag||'IDEIA A TESTAR';$('signalText').textContent=state.edition.signal||'Em observação.';}
   function openArticle(id){const a=(state.edition.articles||[]).find(x=>x.id===id);if(!a)return;
@@ -137,7 +184,21 @@
   function toggleSave(id){const has=state.saved.includes(id);state.saved=has?state.saved.filter(x=>x!==id):[...state.saved,id];persist();render();if($('articleDialog').open)openArticle(id);toast(has?'Removido dos salvos':'Matéria salva neste dispositivo')}
   async function loadEdition(path, label){try{const response=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Edição não encontrada');const d=await response.json();if(!Array.isArray(d.articles))throw Error('Formato inválido');state.edition=d;state.current=label||'latest';state.filter='Todos';state.search='';state.visibleArticles=6;state.visibleVirals=6;$('searchInput').value='';document.querySelectorAll('.nav-tab').forEach(b=>b.classList.toggle('active',b.dataset.filter==='Todos'));render();return true}catch(e){if(label==='latest'){state.edition=window.BOOTSTRAP_EDITION||state.edition;state.current='latest';render();}toast('Não foi possível carregar essa edição. Confira a conexão.');return false}}
   async function loadArchiveIndex(){try{const response=await fetch('data/archive/index.json',{cache:'no-store'});if(!response.ok)throw Error();const data=await response.json();for(const entry of data.editions||[]){const opt=document.createElement('option');opt.value=entry.path;opt.textContent=entry.label;$('archiveSelect').appendChild(opt)}}catch{const opt=document.createElement('option');opt.value='data/archive/'+state.edition.edition_date+'.json';opt.textContent=prettyDate(state.edition.edition_date);$('archiveSelect').appendChild(opt)}}
-  document.addEventListener('click',(ev)=>{const tab=ev.target.closest('[data-banner-index]');if(tab){selectBanner(Number(tab.dataset.bannerIndex));return}const b=ev.target.closest('[data-open],[data-save],[data-copy]');if(!b)return;const id=b.dataset.open||b.dataset.save||b.dataset.copy;if(b.dataset.open)openArticle(id);else if(b.dataset.save)toggleSave(id);else {const a=(state.edition.articles||[]).find(x=>x.id===id);if(a)navigator.clipboard?.writeText(a.url).then(()=>toast('Link da fonte copiado')).catch(()=>toast('Não foi possível copiar'))}});
+  document.addEventListener('click',(ev)=>{
+    const idea=ev.target.closest('[data-open-idea]');if(idea){openIdea(Number(idea.dataset.openIdea));return;}
+    const copyIdea=ev.target.closest('[data-copy-idea]');if(copyIdea){
+      const item=(state.edition.ideas||[])[Number(copyIdea.dataset.copyIdea)];
+      if(item&&navigator.clipboard?.writeText)navigator.clipboard.writeText(ideaCopyText(item)).then(()=>toast('Estratégia copiada')).catch(()=>toast('Não foi possível copiar.'));
+      else toast('Não foi possível copiar neste navegador.');
+      return;
+    }
+    if(ev.target.closest('[data-close-idea]')){$('articleDialog').close();return;}
+    const tab=ev.target.closest('[data-banner-index]');if(tab){selectBanner(Number(tab.dataset.bannerIndex));return;}
+    const b=ev.target.closest('[data-open],[data-save],[data-copy]');if(!b)return;
+    const id=b.dataset.open||b.dataset.save||b.dataset.copy;
+    if(b.dataset.open)openArticle(id);else if(b.dataset.save)toggleSave(id);
+    else {const a=(state.edition.articles||[]).find(x=>x.id===id);if(a)navigator.clipboard?.writeText(a.url).then(()=>toast('Link da fonte copiado')).catch(()=>toast('Não foi possível copiar'));}
+  });
   $('bannerPrev').addEventListener('click',()=>selectBanner(state.activeBanner-1));
   $('bannerNext').addEventListener('click',()=>selectBanner(state.activeBanner+1));
   $('bannerAutoplay').addEventListener('click',()=>{state.bannerPaused=!state.bannerPaused;syncBannerPlayButton()});

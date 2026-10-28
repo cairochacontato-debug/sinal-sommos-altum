@@ -1,0 +1,12 @@
+SINAL | Para fazer hoje interativo
+
+CORREÇÃO: cards agora são botões que abrem modal de estratégia; plano de execução 3-5 passos, objetivo, entrega, métrica, cópia; fallback para edições antigas.
+
+Substitua mantendo os caminhos GitHub:
+assets/app.js
+assets/styles.css
+scripts/update.py
+
+Commit changes, GitHub Actions > Publicar jornal diário > Run workflow (branch main).
+NÃO renomeie arquivos e não apague nenhuma pasta.
+A edição atual já abre as ideias; o roteiro detalhado personalizado é gerado a partir da próxima execução com a API.
