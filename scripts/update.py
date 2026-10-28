@@ -439,6 +439,142 @@ def build_issue(news, edited):
     return issue
 
 
+
+
+def _openai_json_with_retry(instruction, input_data, key, attempts=3):
+    """Solicita JSON estruturado sem tornar tradução parcial uma edição válida."""
+    payload = {
+        'model': os.environ.get('OPENAI_MODEL', 'gpt-4.1-mini'),
+        'input': [
+            {'role': 'system', 'content': instruction},
+            {'role': 'user', 'content': json.dumps(input_data, ensure_ascii=False)}
+        ],
+        'text': {'format': {'type': 'json_object'}}
+    }
+    last = None
+    for n in range(attempts):
+        try:
+            response = requests.post(
+                'https://api.openai.com/v1/responses', json=payload,
+                headers={'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'},
+                timeout=120
+            )
+            response.raise_for_status()
+            result = response.json()
+            raw = result.get('output_text') or ''.join(
+                part.get('text', '')
+                for item in result.get('output', [])
+                for part in item.get('content', [])
+                if part.get('type') == 'output_text'
+            )
+            data = json.loads(raw)
+            if not isinstance(data, dict):
+                raise ValueError('Resposta não é objeto JSON')
+            return data
+        except (requests.RequestException, ValueError, KeyError) as exc:
+            last = exc
+            if n < attempts - 1:
+                time.sleep(2 ** n)
+    raise RuntimeError(f'Falha na tradução via API após {attempts} tentativas: {last}')
+
+
+def translate_issue_ptbr(issue):
+    """Traduz TODAS as manchetes, resumos, banners e vídeos exibidos no SINAL.
+
+    A tradução ocorre APÓS a curadoria de links, para que nenhum artigo selecionado
+    fique em inglês por não estar entre os destaques. Não altera links ou métricas.
+    Falha fechada: se a API não estiver disponível, a edição anterior é preservada.
+    """
+    key = os.environ.get('OPENAI_API_KEY', '').strip()
+    if not key:
+        raise RuntimeError(
+            'OPENAI_API_KEY ausente. Cadastre a chave em GitHub Settings > Secrets and variables > Actions. '
+            'Não será publicada edição nova com manchetes em inglês.'
+        )
+    tasks = []
+    originals = {}
+    for article in issue.get('articles', []):
+        uid = 'a:' + str(article['id'])
+        fields = {name: article[name] for name in ('title', 'summary', 'banner_title')
+                  if isinstance(article.get(name), str) and article[name].strip()}
+        if fields:
+            tasks.append({'id': uid, 'texts': fields})
+            originals[uid] = article
+    for i, video in enumerate(issue.get('virals', [])):
+        uid = f'v:{i}'
+        fields = {name: video[name] for name in ('title', 'insight')
+                  if isinstance(video.get(name), str) and video[name].strip()}
+        if fields:
+            tasks.append({'id': uid, 'texts': fields})
+            originals[uid] = video
+
+    if not tasks:
+        return issue
+
+    instruction = """Você é um tradutor editorial brasileiro do jornal SINAL, de marketing,
+negócios e tecnologia. Sua missão é garantir que TODOS os textos públicos recebidos
+estejam em português do Brasil natural, claro e profissional. Traduza manchetes,
+resumos e destaques do inglês ao português. Se um texto já estiver em português,
+apenas conserve ou ajuste a fluência sem mudar os fatos. NÃO escreva fatos novos,
+não invente números, não aumente certezas nem transforme testes em lançamentos.
+Preserve nomes próprios, marcas, siglas técnicas, números e qualificações relevantes.
+Resuma apenas quando necessário para manter fluência; não use frases em inglês nem
+marcas de tradução. Ignore trechos promocionais genéricos de RSS como 'The post ...
+appeared first on ...' sem perder fatos essenciais. Não inclua opinião ou
+interpretação não presente no original. Traduza 'banner_title' também, quando existir.
+Responda ESTRITAMENTE em JSON: {"items":[{"id":"id original", "texts":
+{"title":"...", "summary":"...", "banner_title":"...", "insight":"..."}}]}.
+Cada item recebido deve ter o MESMO id e exatamente as chaves recebidas em texts.
+NÃO repita links, não modifique IDs e não adicione itens."""
+    batch_size = 12
+    groups = [tasks[i:i+batch_size] for i in range(0, len(tasks), batch_size)]
+    collected = {}
+    print('Tradução PT-BR: iniciando', len(tasks), 'itens em', len(groups), 'lotes')
+
+    def handle_batch(batch):
+        data = _openai_json_with_retry(instruction, {'items': batch}, key)
+        values = data.get('items')
+        if not isinstance(values, list):
+            raise RuntimeError('Resposta da tradução sem array items')
+        expected = {x['id']: set(x['texts']) for x in batch}
+        output = {}
+        for translated in values:
+            if not isinstance(translated, dict):
+                continue
+            uid = translated.get('id')
+            fields = translated.get('texts')
+            if uid not in expected or not isinstance(fields, dict):
+                continue
+            if not all(isinstance(fields.get(k), str) and fields[k].strip() for k in expected[uid]):
+                continue
+            # Tamanho de proteção contra saída fora de escopo; nada é traduzido em tela pelo JS.
+            output[uid] = {k: fields[k].strip()[:450] for k in expected[uid]}
+        if set(output) != set(expected):
+            raise RuntimeError('Tradução incompleta: IDs/colunas não retornados pela IA')
+        return output
+
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = [executor.submit(handle_batch, batch) for batch in groups]
+        for future in as_completed(futures):
+            collected.update(future.result())
+    if len(collected) != len(tasks):
+        raise RuntimeError('Tradução incompleta; edição anterior mantida')
+
+    for uid, fields in collected.items():
+        item = originals[uid]
+        for name, translated in fields.items():
+            original = item[name]
+            if original != translated:
+                item['original_' + name] = original
+            item[name] = translated
+        item['source_language'] = item.get('language', 'indefinido')
+        item['language'] = 'PT'
+        item['display_language'] = 'pt-BR'
+        item['translation_status'] = 'traduzido_ou_revisado_por_ia'
+    issue['display_language'] = 'pt-BR'
+    print('Tradução concluída:', len(tasks), 'itens em português (Brasil).')
+    return issue
+
 def write_issue(issue):
     path=DATA/'archive'/f'{TODAY}.json'
     content=json.dumps(issue,indent=2,ensure_ascii=False)+'\n'
@@ -459,12 +595,15 @@ def write_issue(issue):
 
 
 def main():
+    if not os.environ.get('OPENAI_API_KEY','').strip():
+        raise RuntimeError('Falta OPENAI_API_KEY nos segredos do GitHub Actions para tradução automática PT-BR. Edição anterior preservada.')
     news=gather()
     if len(news)<3:
         print('Menos de 3 itens recentes com fonte. Edição anterior preservada.',file=sys.stderr)
         return 0
     edited=ai_editorial(news)
     issue=build_issue(news,edited)
+    issue=translate_issue_ptbr(issue)
     write_issue(issue)
     return 0
 
