@@ -1,0 +1,367 @@
+{
+  "highlights": [
+    {
+      "area": "Marketing",
+      "article_id": "41b9822c15dfc0",
+      "status": "verified_feed"
+    },
+    {
+      "area": "Plataformas",
+      "article_id": "bb100e8ba15e02",
+      "status": "verified_feed"
+    },
+    {
+      "area": "IA",
+      "article_id": "dfd8b8b5844018",
+      "status": "verified_feed"
+    },
+    {
+      "area": "Negócios",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Creators",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Brand+Creators",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Marcas",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Local",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "RUN",
+      "article_id": "7c02a5f7b552bb",
+      "status": "verified_feed"
+    },
+    {
+      "area": "Saúde",
+      "article_id": "39c11fb6a709c6",
+      "status": "verified_feed"
+    }
+  ],
+  "edition_date": "2026-10-29",
+  "generated_at": "2026-10-29T16:59:05.923246+00:00",
+  "edition_number": 2,
+  "edition_note": "Até 40 sinais acionáveis no total. A IA pode selecionar menos; não usamos notícias fracas para preencher vagas. Datas e fontes identificadas.",
+  "section_policy": {
+    "edition_cap": 40,
+    "min_per_section": 0,
+    "no_filler": true,
+    "actionable_only": true,
+    "case_windows_days": {
+      "Marcas": 10,
+      "Local": 7,
+      "RUN": 10,
+      "Creators": 7,
+      "Brand+Creators": 10,
+      "Saúde": 7
+    }
+  },
+  "section_counts": {
+    "Marketing": 1,
+    "Plataformas": 2,
+    "IA": 2,
+    "Negócios": 0,
+    "Creators": 0,
+    "Brand+Creators": 0,
+    "Marcas": 0,
+    "Local": 0,
+    "RUN": 2,
+    "Saúde": 3
+  },
+  "articles": [
+    {
+      "id": "41b9822c15dfc0",
+      "category": "Marketing",
+      "title": "HubSpot perdeu 80% do seu tráfego – CMO Kipp Bodnar explica por que a receita continuou crescendo via @sejournal, @gregjarboe",
+      "summary": "A queda de tráfego da HubSpot mostra por que os SEOs precisam medir receita por visita, acompanhar conversões referenciadas por IA e construir audiências além do Google.",
+      "source": "Search Engine Journal",
+      "url": "https://www.searchenginejournal.com/hubspot-lost-80-of-its-traffic-cmo-kipp-bodnar-explains-why-revenue-kept-growing/594004/",
+      "published_at": "2026-10-29",
+      "language": "PT",
+      "area": "Marketing",
+      "editorial_score": 6,
+      "why": "A queda de 80% no tráfego da HubSpot indica que estratégias tradicionais de SEO podem não garantir receita, sugerindo a importância de focar em métricas de receita por visita e diversificação de canais.",
+      "action": "Testar campanhas segmentadas focadas em conversão e receita por visita em múltiplos canais além do Google; monitorar o ROI e receita gerada por audiência para ajustar investimentos.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "HubSpot's traffic collapse shows why SEOs need to measure revenue per visit, track AI referral conversions, and build audiences beyond Google. The post HubSpot Lost 80% Of Its Traffic – CMO Kipp Bodnar Explains Why Revenue Kept Growing appeared first",
+      "original_title": "HubSpot Lost 80% Of Its Traffic – CMO Kipp Bodnar Explains Why Revenue Kept Growing via @sejournal, @gregjarboe",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://cdn.searchenginejournal.com/wp-content/uploads/2026/10/husbpot-traffic-93.png",
+      "image_origin": "publisher_og"
+    },
+    {
+      "id": "bb100e8ba15e02",
+      "category": "Plataformas",
+      "title": "Meta adiciona dados de desempenho individual para criativos de anúncios",
+      "summary": "A plataforma Ad Manager da empresa agora oferece a ferramenta Breakdown que traz insights sobre elementos promocionais específicos, embora com algumas limitações.",
+      "source": "Social Media Today",
+      "url": "https://www.socialmediatoday.com/news/meta-adds-individual-performance-data-for-ad-creative/872981/",
+      "published_at": "2026-10-27",
+      "language": "PT",
+      "area": "Plataformas",
+      "editorial_score": 7,
+      "why": "A adição de dados de desempenho individual para criativos no Meta Ad Manager permite insights mais específicos sobre quais elementos de anúncios performam melhor, mas a ferramenta ainda apresenta limitações.",
+      "action": "Utilizar a ferramenta Breakdown para analisar criativos em campanhas atuais, testando variações de elementos; acompanhar métricas de CTR e CPA para identificar criativos com melhor desempenho.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "The company’s Ad Manager platform now offers a Breakdown tool that offers insights into specific promotional elements, albeit with certain limitations.",
+      "original_title": "Meta adds individual performance data for ad creative",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://imgproxy.divecdn.com/jtFl8l6BsGmGnMdnKkBuXTUVcdNE3PFfV9vasuIPtAs/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9tZXRhX2xvZ28yLnBuZw==.webp",
+      "image_origin": "publisher_og"
+    },
+    {
+      "id": "dfd8b8b5844018",
+      "area": "IA",
+      "category": "IA",
+      "title": "Serval triplica avaliação para US$ 3 bilhões com adoção de automação de fluxo de trabalho com IA por empresas - Reuters",
+      "summary": "Serval triplica avaliação para US$ 3 bilhões com adoção de automação de fluxo de trabalho com IA por empresas Reuters",
+      "source": "Reuters",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQWGsxVlVwdm94YVFRbXJ6eWNIXzRuWkZqVkZwNm5QUnkyc0EyUHFyY21WTE9LRFNRSVpEbHg5b0UxaGJsbEYtdVRuTWxHN0xFVnkwa1kya1I4S0ZadXhGQmZmZWtQdGJvbDVrQXI1UVhjLU1zWTdPQWlpLW5ubEdEMWhrczRhbGNHUVRxVTJBZVZtVmpiT0UtWlYwZEZMRjN3NW1LSFhYR1pfc1lLS0lBaGdnc1pLazVyT0dJ?oc=5",
+      "published_at": "2026-10-29",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 7,
+      "why": "O aumento triplo da avaliação da Serval para US$ 3 bilhões reflete a maior adoção de automação de workflows via IA pelos negócios, sinalizando crescimento do mercado de automação inteligente.",
+      "action": "Analisar possibilidades de integração de automação de IA na operação própria; pilotar um fluxo automatizado em processos internos e medir eficiência em tempo e custos antes e depois da implementação.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "Serval triples valuation to $3 billion as businesses adopt AI workflow automation Reuters",
+      "original_title": "Serval triples valuation to $3 billion as businesses adopt AI workflow automation - Reuters",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "7c02a5f7b552bb",
+      "area": "RUN",
+      "category": "RUN",
+      "title": "Maratona Internacional do Paraná é lançada e tem expectativa de reunir 30 mil atletas em 2027 - Banda B",
+      "summary": "Maratona Internacional do Paraná é lançada e tem expectativa de reunir 30 mil atletas em 2027 Banda B",
+      "source": "Banda B",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQRHF5aURfVTJlRXJLeUV5Y2lsM2JRbGhIZlk2Q25xckFZNl9icVBkdEZxVnRkcTFsMUFsMEVMNzFkSGZ2cC1reVI4c1FsNklxZnpGZzZaem51bENZLXNOZWlpM1ZVVVhCUEptc2xuOXF1bXBaZ0FJZTQ5RW4zeEVBN0xSUjJwT1FWYk1lNUlMc0pVTnByM0VMQ2loTFFFNGlrQTRSMmt30gGrAUFVX3lxTFB3SnVaOHcxeDFlSEN5MkhXeDRjMEdDZ0lpZ01JSkYxV2Rmbkl3SnNCRGFMemdMU1FPZHMydUNmWTBDd0wxUlEwTVh6YTh1SGhmbThqaG82UTh1SXU3Nk1ScElvaTBpb2x2VThHN01lYmN4cHlEeTBGSW56ak5ETTZxdVBXb2gzUUtYenpnNFpWc2JBOE5nOHYzTFFZTEV0OGE5VlJEaTdIbTZGQQ?oc=5",
+      "published_at": "2026-10-27",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 7,
+      "why": "A criação da Maratona Internacional do Paraná com potencial para atração de 30 mil atletas até 2027 indica oportunidade de grande engajamento esportivo regional relevante para marcas e patrocínios.",
+      "action": "Planejar campanhas focadas em comunidades de corredores locais até 2027; testar engajamento via redes sociais e inscrição antecipada; acompanhar volume de inscritos e interações como métricas principais.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "39c11fb6a709c6",
+      "area": "Saúde",
+      "category": "Saúde",
+      "title": "Benefícios em saúde passam a incluir telemedicina, cartão de desconto e terapia - O GLOBO",
+      "summary": "Benefícios em saúde passam a incluir telemedicina, cartão de desconto e terapia O GLOBO",
+      "source": "O GLOBO",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQVUxSMDN0ZnNGY1I2aV96dzZZajhkN2VIdFFzSXVTQjdIODJTU2J2bDc2LXZaZ3Z3bkZxcGs1cFRDRk55Z0VtWG9SbWdFVFZUbGd5SXVmaE1LMnlGX054X3htZmt0MVZNbXBFbTdMTzlPc1dfdDVmbUZ2NHM0NmtObGxKX2ZoX3FpNndwZnVXbVpwTXRxcFhaejRjUEh4M3g4RzEtVXBFa0pGdFlNYm9NV3lTbjVrblI2TFB5UWlxSlRxbUtkNVdPSlltRmhqbkVrOW5hN3J6ODJyX1RKVG5v0gHuAUFVX3lxTE41YlFOTi1naVVaSHYyRDV4TV9PQUdWNTM4VFZFaGNUOWxQazRnNVhKMktKYVNrNmZPX1JDSFRkTk5tNXVPMmNOc0xoR0k1aThKWDRxX3dMd2o4UjJoUEhudC1CbmVERkVrc1VuX2N0MFpJVEdkOWFkSHN5WnpHZERKZUpCUEZOZVBmdXhPWkJobFpGNmtjNE9WZWpnalFZc0RlNldQVVRLblRPZUgtQjd2NGhicTM3M0ZXWUJIeE9yb2dUTVFfSGZiMHBNZnctQVlXMkU1cjZXdVpqQk9wVjM0UVFJQkl3UDc2aW9BdlE?oc=5",
+      "published_at": "2026-10-25",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 7,
+      "why": "A inclusão de telemedicina, cartão de desconto e terapia nos benefícios de saúde sinaliza expansão do portfólio de serviços, trazendo maior abrangência e conveniência para usuários.",
+      "action": "Implementar comunicação segmentada destacando nova oferta de telemedicina e benefícios, testando canais digitais e medindo engajamento por cliques e adesões às novas opções.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "5e449a88c468ab",
+      "category": "Plataformas",
+      "title": "TikTok adiciona guia de restaurantes no aplicativo",
+      "summary": "A lista local de restaurantes, chamada Must Eat, é criada para mostrar pontos selecionados pela comunidade nos EUA.",
+      "source": "Social Media Today",
+      "url": "https://www.socialmediatoday.com/news/tiktok-adds-in-app-restaurant-guide/873122/",
+      "published_at": "2026-10-28",
+      "language": "PT",
+      "area": "Plataformas",
+      "editorial_score": 7,
+      "why": "O lançamento do guia de restaurantes Must Eat no TikTok apresenta oportunidade para marcas locais se beneficiarem da visibilidade gerada por conteúdo comunitário em plataforma social popular.",
+      "action": "Criar conteúdo local relacionado a pontos do guia no TikTok; testar alcance e engajamento das publicações vinculadas ao Must Eat; monitorar visualizações e interações como indicadores de performance.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "The local dining list, called Must Eat, is designed to showcase community-sourced spots in the U.S.",
+      "original_title": "TikTok adds in-app restaurant guide",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://imgproxy.divecdn.com/8r7nHLZLWFlr3lr11eb1iCgCl6X9Z_WvCI5QyHMFCNs/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90aWt0b2tfbXVzdF9lYXQucG5n.webp",
+      "image_origin": "publisher_og"
+    },
+    {
+      "id": "21802712ce9c81",
+      "area": "IA",
+      "category": "IA",
+      "title": "Benner apresenta inteligência artificial que automatiza processos e auxilia advogados na elaboração de defesas jurídicas - Capital Digital",
+      "summary": "Benner apresenta inteligência artificial que automatiza processos e auxilia advogados na elaboração de defesas jurídicas Capital Digital",
+      "source": "Capital Digital",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPRTg2MXByWWp4T1RBMDB0WFpEVEdFcUg4SHQwQmhGN19vS1l0eXNWVU1SZ0ZoRkcxS1Bsd2lISnFOcGNIZ2syWWZFN2xJQWxaM1JNSW91SjNFZ2FEVVFsY2hxQjZtaXhrb0FnU0JIOXl1SFMtdWpkc2tpWEVDS1RMTVFhbnlycXJydE9tUEdnZG5EUU5ubjJsWURQWDJZZGxlOTBkdkYzQTRzeWVlUl9sZnB5WnlCV2NkY0hEaTV1eWFYWTQ1eTRzZmhUZmttbGFQQWN0MWdrbDFPZVBCQzR3RG9Ib0g1QQ?oc=5",
+      "published_at": "2026-10-28",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 6,
+      "why": "A inteligência artificial da Benner que automatiza processos jurídicos e auxilia na elaboração de defesas pode refletir avanço significativo em eficiência para escritórios e departamentos jurídicos.",
+      "action": "Avaliar possível integração da solução em operações jurídicas internas ou parceiras; conduzir teste piloto para medir redução no tempo de elaboração de documentos e satisfação dos usuários.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "7e3bf82e9c149d",
+      "area": "RUN",
+      "category": "RUN",
+      "title": "PUMA renova parceria com a Meia Maratona Internacional do Rio e assume patrocínio esportivo em 2027 - Terra",
+      "summary": "PUMA renova parceria com a Meia Maratona Internacional do Rio e assume patrocínio esportivo em 2027 Terra",
+      "source": "Terra",
+      "url": "https://news.google.com/rss/articles/CBMipAJBVV95cUxNM2FUSVhNZTFqYTh4aXo2UWJ1YW1JajNxLTdQMHhfZEV3a3R0T19HclNtSjFkalFxbzJFUjNONDM3aWtpU1NqWTFUUzJCaU1tOTlQal9BNFF6cTdVcXBmMW40c2ZVb3JyYThBbUx5LXNyMUpBbzJVWU51SlQ5S3BoaDBhTnRHdHpyRU5lakRpcFdLVXoyUUkyVmRwSkF6Qy14aDVJUGJlT2l1ZWozZVJMSy1iSjM4QmlSUEJvRzNrWGYxMVRrSFlPckNvVHpTVWYtUTAxOGJkWmxObzJlTnFNMW54dGkyZUJhMlcyZVVkZGZhMzdTNzZnQTNCdUVUR2Z5c0hYa3MtUkNMdDZibjJSUk8tdUtoS2hoUlgzNkltaEh5MHkt?oc=5",
+      "published_at": "2026-10-28",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 7,
+      "why": "A renovação da parceria da PUMA com a Meia Maratona Internacional do Rio reforça o investimento da marca no patrocínio esportivo, potencialmente ampliando seu reconhecimento e influência no segmento running.",
+      "action": "Desenvolver campanha promocional alinhada ao patrocínio visando runners; testar diferentes formatos (vídeos, posts) nas redes sociais e acompanhar métricas de alcance e engajamento do público-alvo.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "7ab0098045beb7",
+      "area": "Saúde",
+      "category": "Saúde",
+      "title": "Saúde mental no trabalho e mudanças na NR-1 serão tema de palestra no Recife - Diario de Pernambuco",
+      "summary": "Saúde mental no trabalho e mudanças na NR-1 serão tema de palestra no Recife Diario de Pernambuco",
+      "source": "Diario de Pernambuco",
+      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQbmFxdlNCT0U1bTlzUkFVMG1vMThCM210dDZuWTFLQVNrbmZpSXVzWG9hamhVZHA0eGIzYUZhMXp0X1A1R1VucGMxclMxb2g4eDZnV3R2ZVhfQVNEM1NSUnJ2R0JjbWRwakI1b2tnVFZXc3cyYUxqSG13bnNSWWEwRmFiYXlHaFVNNzFJODFvUDhNMkdoNTliTWE4VWFGc19jVXJrNFpiQlNqOGFDTWczMGFIaENPNVYtOUdza1FhUFBMUTRMNnJGMDl0RlpITl9BMXJlUmhfa2NjRG10dVUteHk0aw?oc=5",
+      "published_at": "2026-10-29",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 6,
+      "why": "A palestra sobre saúde mental no trabalho e mudanças na NR-1 pode aumentar a conscientização e interesse sobre o tema junto ao público corporativo no Recife.",
+      "action": "Criar campanha segmentada de marketing digital focada em gestores e RH no Recife, promovendo conteúdos sobre saúde mental e mudanças na NR-1; testar diferentes formatos (anúncios e posts) e acompanhar a taxa de cliques e engajamento.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "2d76c0d5d0b52c",
+      "area": "Saúde",
+      "category": "Saúde",
+      "title": "Nova NR-1 obriga empresas a prevenir riscos à saúde mental no trabalho - bra1.com.br",
+      "summary": "Nova NR-1 obriga empresas a prevenir riscos à saúde mental no trabalho bra1.com.br",
+      "source": "bra1.com.br",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPUGJfQzdsUGliMDhTZjFhQmNCUU1mTEIzZ3hfU3owaG5SZjgwazF5UUZobEhFTmRxdXp2TEJBeUFYY3cySFEyVkRmWHJkRXVYTXVZbzFkcEcxWWdGOFpuUTFLakQyNjhtbklnUXNkT1Mtd05NZFA1c3lILV9uQ2ZEOTlmTVVpMU9NeGpGUEViOFFicHY2UnlMUTlyU3JCdzhmeXN2Q1N3Mkd3a2N1aGNrSzdmcw?oc=5",
+      "published_at": "2026-10-27",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 6,
+      "why": "A obrigatoriedade da nova NR-1 para que empresas previnam riscos à saúde mental deve gerar demanda por produtos e serviços que auxiliem no cumprimento dessa norma.",
+      "action": "Desenvolver landing page com informações e soluções para prevenção de riscos à saúde mental no trabalho; lançar campanha de tráfego pago direcionada a gestores; medir número de leads gerados e taxa de conversão.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    }
+  ],
+  "virals": [
+    {
+      "title": "Spoof புரட்சி..! 🔥 Thalapathy Kaalaiyan | O Poder dos Anúncios Spoof | Estudo de Caso #16 | 5n2 Media",
+      "url": "https://www.youtube.com/watch?v=PoEtC5HMqGA",
+      "platform": "YouTube",
+      "language": "PT",
+      "published_at": "2026-10-27",
+      "source": "5n2 Media",
+      "views": 5485,
+      "views_per_day": 2582,
+      "verification": "Dados públicos de visualização via YouTube Data API. Não comprova viralidade.",
+      "insight": "5.485 visualizações públicas; média estimada de 2.582 visualizações por 24h desde a publicação. Analise o gancho, a oferta e a execução criativa; este número não comprova conversão.",
+      "image": "https://i.ytimg.com/vi/PoEtC5HMqGA/hqdefault.jpg",
+      "original_insight": "5,485 visualizações públicas; média estimada de 2,582 visualizações por 24h desde a publicação. Analise o gancho, a oferta e a execução criativa; este número não comprova conversão.",
+      "original_title": "Spoof புரட்சி..! 🔥 Thalapathy Kaalaiyan | The Power of Spoof Ads | Case Study #16 | 5n2 Media",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    }
+  ],
+  "ideas": [
+    {
+      "title": "Testar relatórios detalhados de desempenho criativo da Meta Ads para otimizar CTR e ROAS",
+      "project": "Aplicação geral",
+      "description": "Utilizar a nova ferramenta Breakdown na Meta Ads que detalha performance de elementos específicos em anúncios para identificar criativos com melhor desempenho e ajustar campanhas em tempo real.",
+      "objective": "Melhorar taxa de cliques (CTR) e retorno sobre investimento em anúncios (ROAS) através de testes baseados em dados granularizados.",
+      "deliverable": "Relatório interno com insights de desempenho por elemento e plano de otimização de criativos para próxima campanha",
+      "metric": "CTR e ROAS incremental pós implementação da otimização",
+      "steps": [
+        "Acessar Meta Ads Manager e explorar a ferramenta Breakdown para análise por elemento criativo",
+        "Selecionar campanhas atuais e identificar quais elementos (imagem, texto, chamada) apresentam melhor desempenho",
+        "Criar variações dos melhores elementos para novos anúncios de teste",
+        "Configurar campanhas A/B para comparar versões otimizadas",
+        "Monitorar métricas CTR e ROAS para decidir escalar criativos vencedores"
+      ],
+      "source_id": "bb100e8ba15e02"
+    },
+    {
+      "title": "Criar ativação de running club em parceria com Meia Maratona Internacional do Rio e PUMA para engajamento local",
+      "project": "MOOV",
+      "description": "Aproveitar a renovada parceria entre PUMA e Meia Maratona Internacional do Rio para estruturar um running club com eventos mensais, conteúdo digital exclusivo e patrocínio para corredores, fortalecendo comunidade e captação.",
+      "objective": "Ampliar engajamento de corredores locais, aumentar inscrições para eventos MOOV e fortalecer presença da marca no segmento de corrida de rua.",
+      "deliverable": "Plano de ativação do running club completo com cronograma, mídias e cobertura de patrocinador",
+      "metric": "Número de membros ativos no running club e aumento % nas inscrições para Meia Maratona",
+      "steps": [
+        "Definir calendário mensal de treinos e eventos curatorados para o running club",
+        "Desenvolver conteúdos digitais com dicas, treinos e desafios compartilhados nas redes sociais",
+        "Estabelecer a PUMA como patrocinadora oficial e oferecer brindes ou descontos exclusivos",
+        "Promover campanha digital local focada em segmentação geográfica para captar membros",
+        "Coletar feedbacks dos participantes para ajustar próximo ciclo"
+      ],
+      "source_id": "7c02a5f7b552bb"
+    },
+    {
+      "title": "Integrar telemedicina no pacote de benefícios corporativos com foco em saúde mental conforme a nova NR-1",
+      "project": "Migo Telemedicina",
+      "description": "Incluir serviços de telemedicina e terapia digital no portfólio corporativo, destacando conformidade com a NR-1 que reforça prevenção de riscos à saúde mental no trabalho e oferecer comunicação ética para RH e gestores.",
+      "objective": "Testar aceitação e impacto na redução de absenteísmo e melhoria do clima organizacional via serviços digitais de saúde mental da Migo.",
+      "deliverable": "Piloto de telemedicina corporativa focado em saúde mental com relatório de uso e satisfação",
+      "metric": "Taxa de adesão dos colaboradores e indicadores de redução de afastamentos por saúde mental",
+      "steps": [
+        "Mapear empresas clientes e prospects com interesse em saúde mental e NR-1",
+        "Desenvolver materiais explicativos sobre a integração dos serviços Migo à NR-1 para RH e líderes",
+        "Lançar programa piloto de telemedicina focado em saúde mental incluindo terapias digitais para colaboradores",
+        "Monitorar utilização do serviço, feedbacks e indicadores de saúde organizacional",
+        "Avaliar resultados para ampliar oferta e ajustar comunicação"
+      ],
+      "source_id": "39c11fb6a709c6"
+    }
+  ],
+  "opportunity": {
+    "title": "Ferramentas avançadas de análise criativa, parcerias estratégicas em corridas de rua e demanda crescente por telemedicina focada em saúde mental",
+    "description": "Novas funcionalidades na Meta Ads para granularidade de dados criativos permitem otimização prática no marketing digital. Eventos de corrida ganham escala com patrocinadores focados, criando engajamento local. NR-1 impõe agenda de saúde mental no trabalho demandando soluções de telemedicina integradas para empresas.",
+    "tag": "Marketing digital aplicável, RUN, Telemedicina corporativa"
+  },
+  "signal": "Adoção inicial das ferramentas ainda demanda experimentação prática para comprovar ganho efetivo em CTR/ROAS; parcerias em corridas visam consolidar engajamento com mensuração de inscritos; NR-1 motiva testes pilotos de telemedicina voltada à saúde mental mas dependem da aceitação empresarial.",
+  "display_language": "pt-BR"
+}
