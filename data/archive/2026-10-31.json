@@ -1,0 +1,296 @@
+{
+  "highlights": [
+    {
+      "area": "Marketing",
+      "article_id": "2e384252c98e5c",
+      "status": "verified_feed"
+    },
+    {
+      "area": "Plataformas",
+      "article_id": "f6635deb2b4c51",
+      "status": "verified_feed"
+    },
+    {
+      "area": "IA",
+      "article_id": "c3d5c9ee9b0fd6",
+      "status": "verified_feed"
+    },
+    {
+      "area": "Negócios",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Creators",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Brand+Creators",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Marcas",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Local",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "RUN",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Saúde",
+      "article_id": null,
+      "status": "awaiting_source"
+    }
+  ],
+  "edition_date": "2026-10-31",
+  "generated_at": "2026-10-31T15:47:51.521682+00:00",
+  "edition_number": 4,
+  "edition_note": "Até 40 sinais acionáveis no total. A IA pode selecionar menos; não usamos notícias fracas para preencher vagas. Datas e fontes identificadas.",
+  "section_policy": {
+    "edition_cap": 40,
+    "min_per_section": 0,
+    "no_filler": true,
+    "actionable_only": true,
+    "case_windows_days": {
+      "Marcas": 10,
+      "Local": 7,
+      "RUN": 10,
+      "Creators": 7,
+      "Brand+Creators": 10,
+      "Saúde": 7
+    }
+  },
+  "section_counts": {
+    "Marketing": 1,
+    "Plataformas": 2,
+    "IA": 2,
+    "Negócios": 0,
+    "Creators": 0,
+    "Brand+Creators": 0,
+    "Marcas": 0,
+    "Local": 0,
+    "RUN": 0,
+    "Saúde": 0
+  },
+  "articles": [
+    {
+      "id": "2e384252c98e5c",
+      "category": "Marketing",
+      "title": "Google Diz que Alterar tCPA e Orçamentos Não Reinicia Aprendizado – 6 Insights para BFCM via @sejournal, @siliconvallaeys",
+      "summary": "Seis detalhes do Google Ads sobre Smart Bidding, ajustes sazonais, controles de canal e orçamento que equipes de PPC devem verificar antes do BFCM.",
+      "source": "Search Engine Journal",
+      "url": "https://www.searchenginejournal.com/google-ads-product-manager-revealed-details-that-matter-before-black-friday/594102/",
+      "published_at": "2026-10-30",
+      "language": "PT",
+      "area": "Marketing",
+      "editorial_score": 6,
+      "why": "Entender que mudanças em tCPA e orçamentos não resetam o aprendizado das campanhas do Google Ads pode otimizar ajustes sem perder performance acumulada, impactando a gestão de PPC no BFCM.",
+      "action": "Testar alterações controladas em tCPA e orçamentos em campanhas específicas para BFCM, monitorando o desempenho de conversão e custo por aquisição sem interrupção aparente da curva de aprendizado. Acompanhar métricas de CPA, ROAS e volume de conversões.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "Six Google Ads details on Smart Bidding, seasonality adjustments, channel controls and budgeting that PPC teams should check before BFCM. The post Google Says Changing tCPA & Budgets Won’t Reset Learning – 6 BFCM Takeaways appeared first on Search En",
+      "original_title": "Google Says Changing tCPA & Budgets Won’t Reset Learning – 6 BFCM Takeaways via @sejournal, @siliconvallaeys",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://cdn.searchenginejournal.com/wp-content/uploads/2026/10/google-ads-bfcm-987.png",
+      "image_origin": "publisher_og"
+    },
+    {
+      "id": "f6635deb2b4c51",
+      "category": "Plataformas",
+      "title": "Threads Testa Opção de Compartilhamento em Grupo Menor",
+      "summary": "O grupo Threads Friends da plataforma é semelhante ao recurso Amigos Próximos do Instagram, permitindo que usuários adicionem até 50 conexões.",
+      "source": "Social Media Today",
+      "url": "https://www.socialmediatoday.com/news/threads-tests-smaller-group-sharing-option/873271/",
+      "published_at": "2026-10-29",
+      "language": "PT",
+      "area": "Plataformas",
+      "editorial_score": 6,
+      "why": "A funcionalidade Threads Friends com grupos de até 50 pessoas pode aumentar o engajamento e a segmentação de comunicação numa rede social emergente, afetando estratégias de relacionamento e marketing de influência.",
+      "action": "Criar grupos de comunicação exclusivos com clientes ou influenciadores no Threads Friend, enviando conteúdos personalizados. Medir engajamento via respostas e compartilhamentos para validar o potencial da ferramenta como canal de marketing segmentado.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "The platform’s Threads Friends group is similar to Instagram’s Close Friends feature, and allows users to add up to 50 connections.",
+      "original_title": "Threads tests smaller group sharing option",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://imgproxy.divecdn.com/WtVwuvPQucR0rUzMtUQpYml2_BnBh7RJ_Yvc4iKkzcw/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS90aHJlYWRzX25ld19sb2dvLnBuZw==.webp",
+      "image_origin": "publisher_og"
+    },
+    {
+      "id": "c3d5c9ee9b0fd6",
+      "category": "IA",
+      "title": "ChatGPT Ads Ativa Alterações Automáticas de Anúncios por Padrão via @sejournal, @MattGSouthern",
+      "summary": "Melhorias criativas estão ativadas por padrão no ChatGPT Ads. Veja o que pode ser alterado, como desativar e as questões pendentes de monitoramento.",
+      "source": "Search Engine Journal",
+      "url": "https://www.searchenginejournal.com/chatgpt-ads-turns-on-automatic-ad-changes-by-default/595117/",
+      "published_at": "2026-10-30",
+      "language": "PT",
+      "area": "IA",
+      "editorial_score": 8,
+      "why": "A ativação padrão de alterações automáticas em anúncios com ChatGPT Ads pode alterar resultados de performance e teste de criativos, impactando a experimentação em campanhas de marketing.",
+      "action": "Configurar um teste A/B entre anúncios com alterações automáticas ativadas e desativadas para comparar impacto nos resultados de CTR e conversão. Monitorar métricas principais como taxa de cliques, custo por lead e taxa de conversão para identificar o comportamento da automação.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "Creative enhancements are now on by default in ChatGPT Ads. Here's what they can change, how to opt out, and the tracking questions still open. The post ChatGPT Ads Turns On Automatic Ad Changes By Default appeared first on Search Engine Journal .",
+      "original_title": "ChatGPT Ads Turns On Automatic Ad Changes By Default via @sejournal, @MattGSouthern",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://cdn.searchenginejournal.com/wp-content/uploads/2026/10/chatgpt-ads-creative-enhancements.jpg",
+      "image_origin": "publisher_og"
+    },
+    {
+      "id": "1ff93001ad84a1",
+      "category": "Plataformas",
+      "title": "YouTube Testa Novas Correções para Violações de Spam",
+      "summary": "A plataforma oferece aos canais a opção de revisar conteúdos e editar ou excluir vídeos que possam violar as políticas.",
+      "source": "Social Media Today",
+      "url": "https://www.socialmediatoday.com/news/youtube-is-testing-new-fixes-for-spam-violations/873269/",
+      "published_at": "2026-10-29",
+      "language": "PT",
+      "area": "Plataformas",
+      "editorial_score": 6,
+      "why": "A opção de revisar e editar vídeos com possíveis violações no YouTube pode diminuir riscos de penalizações, afetando a gestão de conteúdo e estratégias de crescimento orgânico nos canais da plataforma.",
+      "action": "Aplicar a revisão manual em um grupo piloto de vídeos com risco de violação para medir o impacto na manutenção do conteúdo e retenção de público. Avaliar métricas de visualizações, tempo médio de exibição e reclamações durante o período do teste.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "The platform is offering channels the option to review content, and edit or delete videos that may go against policy.",
+      "original_title": "YouTube is testing new fixes for spam violations",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://imgproxy.divecdn.com/9iuD7JMuAt00vKfzQp6yaC604ZNk5SI3AOV4pAI1XbQ/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS95b3V0dWJlX2xvZ29fVUJycmx4UC5wbmc=.webp",
+      "image_origin": "publisher_og"
+    },
+    {
+      "id": "15d89db62ccc44",
+      "category": "IA",
+      "title": "Google Revela Como Busca por IA Está Mudando o Que Usuários Consultam via @sejournal, @brookeosmundson",
+      "summary": "Ads Decoded do Google explora consultas mais longas no Modo IA, descoberta precoce e demanda por perspectivas humanas. Veja o que anunciantes podem considerar para 2027.",
+      "source": "Search Engine Journal",
+      "url": "https://www.searchenginejournal.com/google-search-behavior-shifts-2027-ads-strategy/594971/",
+      "published_at": "2026-10-29",
+      "language": "PT",
+      "area": "IA",
+      "editorial_score": 5,
+      "why": "Mudanças na busca via IA do Google destacando consultas mais longas e demanda de perspectivas humanas indicam necessidade de adaptação na criação e segmentação de anúncios para atender essas novas intenções de busca até 2027.",
+      "action": "Desenvolver campanhas de anúncios otimizadas para consultas longas e integrações de conteúdo com enfoque humano, testando diferentes formatos e mensagens. Monitorar o alcance, engajamento e CTR em anúncios com variações foco em AI Search e humanização.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_summary": "Google’s Ads Decoded explores longer AI Mode queries, earlier discovery, and demand for human perspectives. Here’s what advertisers can consider for 2027. The post Google Reveals How AI Search Is Reshaping What Users Query appeared first on Search En",
+      "original_title": "Google Reveals How AI Search Is Reshaping What Users Query via @sejournal, @brookeosmundson",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia",
+      "image": "https://cdn.searchenginejournal.com/wp-content/uploads/2026/10/ads-decoded_10.26-376.jpg",
+      "image_origin": "publisher_og"
+    }
+  ],
+  "virals": [
+    {
+      "title": "Sydney Sweeney em Anúncio HOME ALONE - Novo Anúncio de Natal Recriado | #blux",
+      "url": "https://www.youtube.com/watch?v=l3weDqf1srI",
+      "platform": "YouTube",
+      "language": "PT",
+      "published_at": "2026-10-29",
+      "source": "BLUX",
+      "views": 12856,
+      "views_per_day": 5853,
+      "verification": "Dados públicos de visualização via YouTube Data API. Não comprova viralidade.",
+      "insight": "12.856 visualizações públicas; média estimada de 5.853 visualizações a cada 24h desde a publicação. Analise o gancho, a oferta e a execução criativa; este número não comprova conversão.",
+      "image": "https://i.ytimg.com/vi/l3weDqf1srI/hqdefault.jpg",
+      "original_title": "Sydney Sweeney in HOME ALONE Ad - New recreated Christmas Ad | #blux",
+      "original_insight": "12,856 visualizações públicas; média estimada de 5,853 visualizações por 24h desde a publicação. Analise o gancho, a oferta e a execução criativa; este número não comprova conversão.",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "title": "Spoof புரட்சி..! 🔥 Thalapathy Kaalaiyan | O Poder dos Anúncios Spoof | Estudo de Caso #16 | 5n2 Media",
+      "url": "https://www.youtube.com/watch?v=PoEtC5HMqGA",
+      "platform": "YouTube",
+      "language": "PT",
+      "published_at": "2026-10-27",
+      "source": "5n2 Media",
+      "views": 5685,
+      "views_per_day": 1395,
+      "verification": "Dados públicos de visualização via YouTube Data API. Não comprova viralidade.",
+      "insight": "5.685 visualizações públicas; média estimada de 1.395 visualizações a cada 24h desde a publicação. Analise o gancho, a oferta e a execução criativa; este número não comprova conversão.",
+      "image": "https://i.ytimg.com/vi/PoEtC5HMqGA/hqdefault.jpg",
+      "original_title": "Spoof புரட்சி..! 🔥 Thalapathy Kaalaiyan | The Power of Spoof Ads | Case Study #16 | 5n2 Media",
+      "original_insight": "5,685 visualizações públicas; média estimada de 1,395 visualizações por 24h desde a publicação. Analise o gancho, a oferta e a execução criativa; este número não comprova conversão.",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    }
+  ],
+  "ideas": [
+    {
+      "title": "Teste de criativos dinâmicos automáticos no ChatGPT Ads para otimizar ROI",
+      "project": "Aplicação geral",
+      "description": "Com a ativação por padrão das mudanças automáticas nos criativos via ChatGPT Ads, equipes de marketing podem testar rapidamente variações de anúncios para melhorar CTR e ROAS sem intervenção manual.",
+      "objective": "Reduzir CAC por meio da automação criativa e melhorar o desempenho dos anúncios em Google Ads e plataformas suportadas pelo ChatGPT Ads.",
+      "deliverable": "Relatório comparativo de desempenho e recomendações para automação criativa.",
+      "metric": "CTR, CAC, ROAS, tempo de ajuste criativo.",
+      "steps": [
+        "Ativar ou manter ativada a opção de mudanças automáticas de criativos no painel do ChatGPT Ads.",
+        "Rodar campanha teste com novo criativo dinâmico gerado automaticamente focado no target principal.",
+        "Monitorar o CTR, CAC e ROAS em comparação com campanhas manuais anteriores.",
+        "Ajustar orçamento para o que performar melhor após 3-5 dias.",
+        "Documentar variações e aplicar aprendizado em outras contas/agências."
+      ],
+      "source_id": "c3d5c9ee9b0fd6"
+    },
+    {
+      "title": "Ajuste de tCPA e orçamento no Google Ads sem perda do aprendizado para BFCM",
+      "project": "Aplicação geral",
+      "description": "Google Ads confirma que alterar tCPA e orçamentos não reseta a aprendizagem da campanha, oferecendo chance para otimizar campanhas para datas sazonais como Black Friday e Cyber Monday sem reiniciar performance.",
+      "objective": "Testar ajustes de tCPA e orçamento em campanhas de BFCM para melhorar volume e eficiência, aproveitando aprendizagem prévia sem perder dados.",
+      "deliverable": "Plano de ação documentado e resultados de teste de otimização para BFCM.",
+      "metric": "CAC, ROAS, volume de conversão, estabilidade do learning.",
+      "steps": [
+        "Identificar campanhas de Google Ads chave para BFCM com aprendizado sólido.",
+        "Planejar alterações graduais no tCPA e orçamentos para ampliação de alcance.",
+        "Implementar as mudanças e acompanhar a performance diariamente.",
+        "Observar se o learning se mantém estável e se CAC e ROAS melhoram.",
+        "Ajustar estratégias baseando-se no comportamento pós mudança."
+      ],
+      "source_id": "2e384252c98e5c"
+    },
+    {
+      "title": "Implementar grupos de até 50 usuários no Threads para ações segmentadas",
+      "project": "Aplicação geral",
+      "description": "Com o recurso de grupos restritos ('Threads Friends') para até 50 contatos, marcas e eventos podem criar comunidades hipersegmentadas para ativações, ofertas exclusivas e engajamento direto.",
+      "objective": "Testar grupos exclusivos para corridas de rua, clubes ou telemedicina para aumentar engajamento e retenção com mensagens customizadas.",
+      "deliverable": "Relatório de engajamento e perfil do público em grupos exclusivos no Threads.",
+      "metric": "Taxa de resposta, CTR das mensagens, número ativo por grupo.",
+      "steps": [
+        "Criar grupos Threads para segmentações específicas, ex: corredores locais ou pacientes corporativos.",
+        "Desenvolver conteúdo exclusivo para estes grupos, como ofertas, dicas ou convites VIP.",
+        "Enviar comunicados regulares e medir engajamento via respostas e ações.",
+        "Comparar métricas de retenção e CTA dentro do grupo versus canais tradicionais.",
+        "Escalar grupos conforme resultados e ajustar conteúdo baseado em feedback."
+      ],
+      "source_id": "f6635deb2b4c51"
+    }
+  ],
+  "opportunity": {
+    "title": "Automatização criativa e controle de orçamentos sem perda de aprendizado para campanhas sazonais",
+    "description": "A combinação do recurso de ajustes automáticos nos criativos do ChatGPT Ads e a garantia do Google Ads de que mudanças em tCPA e orçamento não resetam aprendizado oferece oportunidade para otimizar campanhas de alta demanda como Black Friday com mais agilidade e eficiência, reduzindo o tempo de teste e erro manual e melhorando métricas fundamentais como CAC e ROAS.",
+    "tag": "Google Ads,BFCM,ChatGPT Ads,Automação criativa,Otimização de campanhas"
+  },
+  "signal": "Os temas em alta no radar sugerem perguntas novas do consumidor. Hipótese editorial: conteúdo que responde essas perguntas cedo pode ganhar atenção, sem garantia de alcance.",
+  "display_language": "pt-BR"
+}
