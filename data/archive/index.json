@@ -1,6 +1,11 @@
 {
   "editions": [
     {
+      "date": "2026-11-09",
+      "label": "09/11/2026",
+      "path": "data/archive/2026-11-09.json"
+    },
+    {
       "date": "2026-11-08",
       "label": "08/11/2026",
       "path": "data/archive/2026-11-08.json"
