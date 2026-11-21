@@ -1,0 +1,348 @@
+{
+  "highlights": [
+    {
+      "area": "Marketing",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Plataformas",
+      "article_id": "2c274287c84de2",
+      "status": "verified_feed"
+    },
+    {
+      "area": "IA",
+      "article_id": "0f6f855f3f5d17",
+      "status": "verified_feed"
+    },
+    {
+      "area": "Negócios",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Creators",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Brand+Creators",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Marcas",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "Local",
+      "article_id": null,
+      "status": "awaiting_source"
+    },
+    {
+      "area": "RUN",
+      "article_id": "46943c4cfae6ed",
+      "status": "verified_feed"
+    },
+    {
+      "area": "Saúde",
+      "article_id": "11c56b7780f1c2",
+      "status": "verified_feed"
+    }
+  ],
+  "edition_date": "2026-11-21",
+  "generated_at": "2026-11-21T17:38:39.695949+00:00",
+  "edition_number": 25,
+  "edition_note": "Até 40 sinais acionáveis no total. A IA pode selecionar menos; não usamos notícias fracas para preencher vagas. Datas e fontes identificadas.",
+  "section_policy": {
+    "edition_cap": 40,
+    "min_per_section": 0,
+    "no_filler": true,
+    "actionable_only": true,
+    "case_windows_days": {
+      "Marcas": 10,
+      "Local": 7,
+      "RUN": 10,
+      "Creators": 7,
+      "Brand+Creators": 10,
+      "Saúde": 7
+    }
+  },
+  "section_counts": {
+    "Marketing": 0,
+    "Plataformas": 3,
+    "IA": 4,
+    "Negócios": 0,
+    "Creators": 0,
+    "Brand+Creators": 0,
+    "Marcas": 0,
+    "Local": 0,
+    "RUN": 2,
+    "Saúde": 1
+  },
+  "articles": [
+    {
+      "id": "2c274287c84de2",
+      "category": "Plataformas",
+      "title": "Meta lança plataforma de compras Achados no Brasil",
+      "summary": "A ferramenta marketplace reúne listagens de produtos de vários aplicativos da empresa em uma exibição unificada.",
+      "source": "Social Media Today",
+      "url": "https://www.socialmediatoday.com/news/meta-launches-shopping-platform-achados-in-brazil/875290/",
+      "published_at": "2026-11-19",
+      "language": "PT",
+      "area": "Plataformas",
+      "editorial_score": 6,
+      "why": "O lançamento do Achados cria oportunidade para ampliar a presença de produtos brasileiros em um marketplace integrado das plataformas da Meta, potencialmente alterando o comportamento de compra online.",
+      "action": "Testar uma campanha segmentada de anúncios para promover produtos brasileiros no Achados, usando públicos personalizados no Instagram e Facebook; medir o CTR e a taxa de conversão de visitas em compras na plataforma.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Meta launches shopping platform Achados in Brazil",
+      "original_summary": "The marketplace tool combines product listings from across the company’s apps into a unified display.",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "0f6f855f3f5d17",
+      "area": "IA",
+      "category": "IA",
+      "title": "Zite – Construtor de Aplicativos de Negócios com IA, Bancos de Dados Integrados e Automação de Fluxo de Trabalho - Quasa.io",
+      "summary": "Zite – Construtor de Aplicativos de Negócios com IA, Bancos de Dados Integrados e Automação de Fluxo de Trabalho Quasa.io",
+      "source": "Quasa.io",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPSjhQYTdUMXFUdGFWOXRGdFpSLTYwMjdkNDRmb2w3VmNQRWotcldwbk5PS2xaSERFWXU3UlBGV2tJSHhRTGtsV0FZM1Q3UVVOOWdUelV1alZHUG1oT214cGFnVEg1UGdqdElKLUdzTGFPeVZRSXNYelpKeDcwZGxPay1scE55MlZMazhtbXAyZXBZaE9fdGVz?oc=5",
+      "published_at": "2026-11-20",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 8,
+      "why": "A oferta do Zite como construtor de apps com IA e automação pode impactar negócios que buscam agilidade em processos internos e criação de soluções sob medida.",
+      "action": "Implementar um piloto ofertando o Zite para um grupo de clientes empresariais; acompanhar o número de apps criados e a redução no tempo gasto em automação de tarefas como métrica de adoção e eficiência.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Zite – AI Business App Builder, Integrated Databases & Workflow Automation - Quasa.io",
+      "original_summary": "Zite – AI Business App Builder, Integrated Databases & Workflow Automation Quasa.io",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "46943c4cfae6ed",
+      "area": "RUN",
+      "category": "RUN",
+      "title": "Inscrições abertas para a Corrida de Rua e Caminhada de Araucária - O Popular do Paraná",
+      "summary": "Estão abertas as inscrições para a Corrida de Rua e Caminhada de Araucária O Popular do Paraná",
+      "source": "O Popular do Paraná",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNV1R5dEdwWjZNTFUydS1zLUJMMVNjakR2ZTQtb2ZLSm03MkUwQ2dURkphQ2xZb2tTRGVUVThsY215dVAtdnQ5RXdOYUxfSnYyajc5blpwQ3BiTGd4S25wTU1QQzNNNVIyMzN4cnNVSzNjbm9KMGhsTXJydHRUSUQ0alBRWEpoRmhEMllyU012NW9ELWFZQ2ZtUmlRcFBseGc?oc=5",
+      "published_at": "2026-11-21",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 6,
+      "why": "A abertura das inscrições para a Corrida de Rua e Caminhada de Araucária sinaliza oportunidade para ampliação do engajamento local em eventos de corrida, fortalecendo marca e presença regional.",
+      "action": "Lançar campanha de mídia local focada na Corrida de Araucária, com testagem A/B de mensagens para diferentes públicos; monitorar o volume de inscrições e o engajamento com as redes sociais oficiais do evento.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Inscrições para a Corrida de Rua e Caminhada de Araucária estão abertas - O Popular do Paraná",
+      "original_summary": "Inscrições para a Corrida de Rua e Caminhada de Araucária estão abertas O Popular do Paraná",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "11c56b7780f1c2",
+      "area": "Saúde",
+      "category": "Saúde",
+      "title": "NR-1 vira pauta: o que a nova regra sobre saúde mental no trabalho exige das empresas - bra1.com.br",
+      "summary": "NR-1 vira pauta: o que a nova regra sobre saúde mental no trabalho exige das empresas bra1.com.br",
+      "source": "bra1.com.br",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQYjlJR3FMMXUzdlF6NUpCWGszNDFaU2l6Nnlja1FCRXdRYzhZYlI4S3NwMHVEelh2RnFiWXpSOVJ4alhXYjVrSEl3T0xUVWNVcHF0LTRsTVlhTkxQM2xVSmQ5eTdxZXpDcHJUcGEyaGR4NUdMdFB4WTZ5UXNnSjJqaGFoWS0xN3BpeDhva2JoaTVaNTJSeTVSNVdaMWZ3c3QtdE9sTVFsMWJ6aFJaZGtrajVwX3RDd3FSd2ZORDBHcEVQZ3dwY3lJ?oc=5",
+      "published_at": "2026-11-16",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 6,
+      "why": "A nova regra NR-1 sobre saúde mental no trabalho pode exigir adaptações operacionais nas empresas, impactando políticas internas e comunicação corporativa.",
+      "action": "Divulgar conteúdo educativo sobre a NR-1 entre colaboradores e líderes via canais internos; avaliar engajamento por meio de visualizações e feedbacks para ajustar comunicação e treinamentos futuros.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "841fc7b97f5105",
+      "category": "Plataformas",
+      "title": "Threads testa nova opção de perguntas e respostas em chats ao vivo",
+      "summary": "A plataforma experimenta um formato que permite aos anfitriões solicitar perguntas, enquanto participantes votam sobre o que deve ser perguntado.",
+      "source": "Social Media Today",
+      "url": "https://www.socialmediatoday.com/news/threads-tests-new-qa-option-in-live-chats/875287/",
+      "published_at": "2026-11-19",
+      "language": "PT",
+      "area": "Plataformas",
+      "editorial_score": 7,
+      "why": "O teste da opção de perguntas e respostas no Threads pode transformar a interação em lives, aumentando o engajamento e a relevância dos debates ao incentivar a participação ativa do público.",
+      "action": "Realizar live testando a funcionalidade de Q&A no Threads com público segmentado; monitorar a quantidade de perguntas enviadas, votos recebidos e tempo médio de permanência na live.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Threads tests new Q&A option in live chats",
+      "original_summary": "The platform is experimenting with a format that would allow chat hosts to solicit questions, and have chat participants vote on what to ask.",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "d728e176e29740",
+      "area": "IA",
+      "category": "IA",
+      "title": "Slack integra fluxos de trabalho e agentes de IA para automação fluida - Small Business Trends",
+      "summary": "Slack integra fluxos de trabalho e agentes de IA para automação fluida Small Business Trends",
+      "source": "Small Business Trends",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPNHFuVGpla19mNzVUMzEyd3VuSFdkN2NDU1RwcTNVTVRZcVZrSmdaTnVUd1JUMHFLZU1lYUtnMnc0MjlEQWYyS3BwbFN2UEY3X3BScV84T2tkRXVqY1ctT1dQaDI3QWYyQWRWUGM4TnNYaGxoc0VKdEdocTZKSzI4V2pKeHJTaFRfTTNPREh6VlE1WTNQLW4w?oc=5",
+      "published_at": "2026-11-20",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 8,
+      "why": "A integração entre workflows e agentes de IA no Slack pode otimizar processos internos e redução manual de tarefas repetitivas em equipes, afetando produtividade.",
+      "action": "Implementar workflows automatizados com agentes IA em equipes piloto; medir a redução do tempo gasto em tarefas rotineiras e a frequência de uso das automações para validar impacto.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Slack Integrates Workflows and AI Agents for Seamless Automation - Small Business Trends",
+      "original_summary": "Slack Integrates Workflows and AI Agents for Seamless Automation Small Business Trends",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "ace01b0488d677",
+      "area": "RUN",
+      "category": "RUN",
+      "title": "Meia Maratona que reforça conscientização sobre prevenção e saúde do homem está com inscrições abertas - Folha BV",
+      "summary": "Meia Maratona que reforça conscientização sobre prevenção e saúde do homem está com inscrições abertas Folha BV",
+      "source": "Folha BV",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPLUJVckNMa1NUSWZHRXY4c3BJNThfV0FHakVNME13V2thVzhEXzhqOXBYa3F0ZEFzUTYtSko3d3p3X2ZQVGlqRlFqY1p3ZUR5dXpoWm50TDkwUXVRTUNOLXEwNVZwMVZxWkNpekdrV19YbEh0YXY0QkZaTXBVMWFYQ2JUU29Kb2V0M0xjWFAzVHhSN2lrZWZCbzdHbVVEdF9wck5VVW03UGowWTg?oc=5",
+      "published_at": "2026-11-13",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 6,
+      "why": "A abertura das inscrições para a Meia Maratona com foco em saúde do homem pode reforçar a conscientização e atrair público alinhado a causas sociais, agregando valor à marca do evento.",
+      "action": "Criar campanha de marketing de causa direcionada a homens interessados em saúde; acompanhar o número de inscrições geradas e o engajamento nas postagens relacionadas.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "9318e59b9c93e3",
+      "area": "IA",
+      "category": "IA",
+      "title": "Incode lança ferramenta de verificação humana para conter fraudes em transações com agentes de IA - Brasil Inovador",
+      "summary": "Incode lança ferramenta de verificação humana para conter fraudes em transações com agentes de inteligência artificial Brasil Inovador",
+      "source": "Brasil Inovador",
+      "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOWHJibDRFTDFlRGkzRHNaOHphaUZIazVDMWhLX3VwZl9qQ1RHQ2FybE5QZ2VMNTRnMXBybGpXcGcyN3RQUnctemFicmpIN0REUnhsZV9pZHUtRnZXYnl5ZTFESWpuRkpaX3VMQWQ1OXhVcS1jb3F3UFNHanlRNGhROElVRWlJalZzODluc1VVdi1Ea2VveUE3ZHFsUXl5dFcyMGhhNnc0RjdMMFdoS2xBLW85SEF4X1hQZW1MZDBMZnVsQzFJVEJHbUMxZ0Vza2pINWktYUVtcGdZTHI5RTBuS3NSSQ?oc=5",
+      "published_at": "2026-11-19",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 7,
+      "why": "A ferramenta da Incode para verificação humana em transações pode reduzir riscos de fraude em processos que utilizam agentes de IA, aumentando a confiança operacional.",
+      "action": "Testar a integração da ferramenta em operações de e-commerce com alto volume de transações; monitorar a taxa de fraudes detectadas antes e depois da implementação para avaliar eficácia.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Incode lança ferramenta de verificação humana para conter fraudes em transações com agentes de inteligência artificial - Brasil Inovador",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "3defab45334139",
+      "area": "IA",
+      "category": "IA",
+      "title": "Tech for Humans lança BPO Agêntico e mira maior BPO do Brasil com pagamento por performance - JRS Portal",
+      "summary": "Tech for Humans lança BPO Agêntico e mira o maior BPO do Brasil com pagamento por performance JRS Portal",
+      "source": "JRS Portal",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNLUk0SVZoM2MtRWF2emIyYlVHMVBjR2xQWkZMajhyU0ZwNEVkaGg1aThfMWwxSjZ6aDljQlk4a0xoLWlVel9SSUdFTmZwdG1pQWVIZkQ4MXRKa2M3bTM0aG42TWJzbEtZOUtMVVJiTkFyVlNoaktEUzBoUFYxMXlXdENKMmwtMHJMd1B2bHh3dXF4MGRXLVkybVpxSVQtbF83RF9ZVjhCYmlhcVhiWEw4N1d2TGJzeXFiTi1JcG1OLUhXN3VYUkd1YWp3?oc=5",
+      "published_at": "2026-11-19",
+      "language": "PT",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "editorial_score": 7,
+      "why": "O lançamento do BPO Agêntico com pagamento por performance pode alterar modelos operacionais tradicionais de BPO, influenciando o custo e a gestão de serviços.",
+      "action": "Testar campanhas segmentadas de marketing digital destacando o modelo de pagamento por performance, monitorando o engajamento (CTR) e taxa de aquisição de novos clientes para avaliar a receptividade do público ao modelo inovador.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Tech for Humans lança BPO Agêntico e mira o maior BPO do Brasil com pagamento por performance - JRS Portal",
+      "source_language": "PT",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    },
+    {
+      "id": "55f81b7792e9e1",
+      "category": "Plataformas",
+      "title": "Instagram adiciona edição de Stories",
+      "summary": "A plataforma lançou várias atualizações em recursos dos Stories, incluindo a opção muito solicitada para editar Stories após a publicação.",
+      "source": "Social Media Today",
+      "url": "https://www.socialmediatoday.com/news/instagram-adds-stories-editing/875261/",
+      "published_at": "2026-11-19",
+      "language": "PT",
+      "area": "Plataformas",
+      "editorial_score": 6,
+      "why": "A possibilidade de editar Stories após a publicação pode aumentar a interação e o tempo de permanência dos usuários na plataforma, impactando estratégias de conteúdo digital.",
+      "action": "Implementar uma campanha de anúncios promovendo a nova função de edição de Stories, medindo o aumento no uso da função de edição e o tempo médio de visualização dos Stories para validar o impacto da novidade.",
+      "verification": "Manchete e resumo de feed RSS; sem verificação do artigo integral.",
+      "analysis_type": "hipotese_estrategica_fundamentada_em_rss",
+      "original_title": "Instagram adds Stories editing",
+      "original_summary": "The platform rolled out various Stories feature updates, including the much-request option to make changes to Stories after posting.",
+      "source_language": "EN",
+      "display_language": "pt-BR",
+      "translation_status": "traduzido_ou_revisado_por_ia"
+    }
+  ],
+  "virals": [],
+  "ideas": [
+    {
+      "title": "Automatizar fluxos de trabalho usando Slack com IA para ganho de eficiência",
+      "project": "Aplicação geral",
+      "description": "Integrar workflows e agentes de IA no Slack para automatizar processos internos de atendimento e vendas nas agências de marketing e telemedicina.",
+      "objective": "Reduzir tempo gasto em tarefas repetitivas para focar em estratégias de campanha e atendimento ao cliente.",
+      "deliverable": "Workflow automatizado funcional no Slack aliado a IA para rotina operacional",
+      "metric": "Tempo médio de resposta e resolução de atendimentos, produtividade da equipe",
+      "steps": [
+        "Mapear processos internos repetitivos no atendimento e operação",
+        "Configurar os workflows no Slack para automação dessas tarefas",
+        "Treinar agentes de IA para responder consultas usuais e acionar alertas",
+        "Monitorar resultados e ajustar automações para melhorar performance",
+        "Avaliar impacto na produtividade via métricas de tempo e satisfação"
+      ],
+      "source_id": "d728e176e29740"
+    },
+    {
+      "title": "Aproveitar nova plataforma de marketplace Meta Achados para vendas combinadas",
+      "project": "Aplicação geral",
+      "description": "Testar a listagem unificada de produtos da nova plataforma Achados da Meta para aumentar alcance e eficiência de conversão em Google Ads e Meta Ads para e-commerce ligado ao negócio.",
+      "objective": "Incrementar vendas e reduzir CAC ao concentrar anúncios e links para a vitrine consolidada Achados.",
+      "deliverable": "Campanha integrada e monitorada na plataforma Achados da Meta",
+      "metric": "CTR, CAC e ROAS das campanhas com apontamento para Achados",
+      "steps": [
+        "Cadastrar produtos principais e de impulso na plataforma Achados",
+        "Configurar campanhas Spotlight no Meta Ads direcionadas para Achados",
+        "Monitorar CTR, CAC e ROAS comparando com canais separados",
+        "Testar promoções exclusivas via Achados para engajamento e retenção",
+        "Ajustar anúncios conforme comportamento dos dados e feedback"
+      ],
+      "source_id": "2c274287c84de2"
+    },
+    {
+      "title": "Criar conteúdos e ativações para running clubs alinhadas à saúde mental no trabalho",
+      "project": "Migo Telemedicina",
+      "description": "Desenvolver um projeto de incentivo à prática de corrida para colaboradores focado em saúde mental e prevenção, alinhado à NR-1 e programas de saúde corporativa da Migo Telemedicina.",
+      "objective": "Ferramenta promocional para aquisição e retenção corporativa, ampliando a comunicação ética de benefícios em saúde mental e física.",
+      "deliverable": "Programa piloto de running clubs com apoio Migo e conteúdo vinculado à NR-1",
+      "metric": "Número de participantes corporativos, engajamento e percepção de saúde mental",
+      "steps": [
+        "Coletar dados da NR-1 e diretrizes para saúde mental no trabalho",
+        "Desenhar um programa de corridas e caminhadas regulares para empresas-clientes",
+        "Criar conteúdos educativos de saúde mental com incentivos à prática física",
+        "Promover inscrições e participação via running clubs corporativos",
+        "Avaliar engajamento e mudança em métricas de saúde mental corporativa"
+      ],
+      "source_id": "11c56b7780f1c2"
+    }
+  ],
+  "opportunity": {
+    "title": "Automação e integração de IA em plataformas para ganho efetivo em marketing e saúde",
+    "description": "Novas soluções de IA integradas a Slack, plataformas Meta e ferramentas de verificação ampliam a capacidade de automação e personalização, com impacto direto na redução de CAC, aumento de ROAS e melhoria em fluxo de trabalho e saúde corporativa.",
+    "tag": "automação,IA,marketing,digital,saúde corporativa,telemedicina"
+  },
+  "signal": "Embora as ferramentas de IA e novos formatos nas plataformas estejam em testes iniciais, adotá-las com hipóteses claras permite acelerar ganhos operacionais e de performance. Importante validar antes de escala, pois nem toda inovação impactará diretamente métricas estratégicas.",
+  "display_language": "pt-BR"
+}
